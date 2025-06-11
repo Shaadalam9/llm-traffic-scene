@@ -8,6 +8,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+data/
+videos/
 build/
 develop-eggs/
 dist/
@@ -33,6 +35,8 @@ yolo11x.pt
 # Instance specific files
 config
 secret
+runs
+_output
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

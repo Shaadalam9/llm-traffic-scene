@@ -10,7 +10,6 @@ from collections import defaultdict
 import shutil
 import numpy as np
 import pandas as pd
-import re
 
 logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
@@ -46,7 +45,16 @@ class YOLO_detection:
         self.resolution = None
         self.video_title = video_title
 
-    def tracking_mode(self, input_video_path, output_video_path, flag=0, video_fps=25):
+    def set_video_title(self, title):
+        """
+        Sets the video title for the instance.
+
+        Parameters:
+            title (str): The new title for the video.
+        """
+        self.video_title = title
+
+    def tracking_mode(self, input_video_path, video_fps=25):
         """
         Performs object tracking on a video using YOLO and saves tracking results.
 
@@ -81,7 +89,7 @@ class YOLO_detection:
         os.makedirs(annotated_frame_output_path, exist_ok=True)
         os.makedirs(tracked_frame_output_path, exist_ok=True)
 
-        # Initialize a VideoWriter for the final video
+        # Initialise a VideoWriter for the final video
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # type: ignore
 
         if display_frame_tracking:
@@ -108,6 +116,7 @@ class YOLO_detection:
             if success:
 
                 frame_count += 1  # Increment frame count
+
                 # Run YOLO tracking on the frame, persisting tracks between frames
                 results = model.track(frame,
                                       tracker='bytetrack.yaml',
@@ -204,11 +213,6 @@ class YOLO_detection:
         cv2.destroyAllWindows()
         progress_bar.close()
 
-        if flag == 1:
-            YOLO_detection.create_video_from_images(image_folder=tracked_frame_output_path,
-                                                    output_video_path=output_video_path,
-                                                    frame_rate=30)
-
     @staticmethod
     def merge_txt_to_csv_dynamically(txt_location, output_csv, frame_count):
         """
@@ -240,51 +244,3 @@ class YOLO_detection:
             df.to_csv(output_csv, index=False, mode='w')  # If the CSV does not exist, create it
         else:
             df.to_csv(output_csv, index=False, mode='a', header=False)  # If it exists, append without header
-
-    @staticmethod
-    def create_video_from_images(image_folder, output_video_path, frame_rate=30):
-        """
-        Creates a video file from a sequence of image frames.
-
-        Parameters:
-            image_folder (str): Folder containing frame images.
-            output_video_path (str): Path where the output video will be saved.
-            frame_rate (int or float): Frame rate for the video.
-        """
-        os.makedirs(os.path.dirname(output_video_path), exist_ok=True)
-
-        def extract_frame_number(filename):
-            match = re.search(r'frame_tracked_(\d+)\.jpg', filename)
-            return int(match.group(1)) if match else float('inf')  # Push invalid ones to the end
-
-        images = [img for img in os.listdir(image_folder) if img.endswith(".jpg")]
-
-        if not images:
-            logger.error("No JPG images found in the specified folder.")
-            return
-
-        images.sort(key=extract_frame_number)
-
-        first_image_path = os.path.join(image_folder, images[0])
-        frame = cv2.imread(first_image_path)
-
-        if frame is None:
-            logger.error(f"Could not read the first image: {first_image_path}")
-            return
-
-        height, width, _ = frame.shape
-
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # type: ignore
-        video = cv2.VideoWriter(output_video_path, fourcc, frame_rate, (width, height))
-
-        for image in images:
-            img_path = os.path.join(image_folder, image)
-            frame = cv2.imread(img_path)
-
-            if frame is not None:
-                video.write(frame)
-            else:
-                logger.error(f"Failed to read frame: {img_path}")
-
-        video.release()
-        logger.info(f"Video created successfully at: {output_video_path}")
