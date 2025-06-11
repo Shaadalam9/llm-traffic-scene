@@ -25,6 +25,14 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.vscode
+
+# Model files
+yolo11x.pt
+
+# Instance specific files
+config
+secret
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -50,6 +58,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+
 
 # Translations
 *.mo
@@ -174,9 +183,9 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore
 #  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  and can be added to the global gitignore or merged into this file. However, if you prefer,
 #  you could uncomment the following to ignore the enitre vscode folder
 # .vscode/
 
