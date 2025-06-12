@@ -4,6 +4,7 @@ from logmod import logs
 import os
 import statistics
 import pandas as pd
+import pycountry
 
 logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
@@ -59,36 +60,20 @@ class Video_info:
                     size = os.path.getsize(full_path)
                     files_info.append((filename, size))
 
-        # If no video files found, return default values
         if not files_info:
-            return {
-                "average_size_MB": 0,
-                "std_dev_size_MB": 0,
-                "max_size_file": None,
-                "max_size_MB": 0,
-                "min_size_file": None,
-                "min_size_MB": 0
-            }
+            logger.info("No video files found in folder: %s", folder_path)
+            return
 
-            # Get list of sizes in MB
         sizes_mb = [Video_info.convert_to_mb(size) for _, size in files_info]
-
-        # Calculate average and standard deviation
         avg_size_MB = round(statistics.mean(sizes_mb), 2)
         std_dev_size_MB = round(statistics.stdev(sizes_mb), 2) if len(sizes_mb) > 1 else 0.0
-
-        # Find the file with maximum and minimum size
         max_file, max_size = max(files_info, key=lambda x: x[1])
         min_file, min_size = min(files_info, key=lambda x: x[1])
 
-        return {
-            "average_size_MB": avg_size_MB,
-            "std_dev_size_MB": std_dev_size_MB,
-            "max_size_file": max_file,
-            "max_size_MB": Video_info.convert_to_mb(max_size),
-            "min_size_file": min_file,
-            "min_size_MB": Video_info.convert_to_mb(min_size)
-        }
+        logger.info(f"The average size of the videos is {avg_size_MB} MB.")
+        logger.info(f"The standard deviation in the size of the videos is {std_dev_size_MB} MB.")
+        logger.info(f"The largest video file is '{max_file}' with size {Video_info.convert_to_mb(max_size)} MB.")
+        logger.info(f"The smallest video file is '{min_file}' with size {Video_info.convert_to_mb(min_size)} MB.")
 
     def video_processing_time_stats(self, df):
         """
@@ -128,20 +113,12 @@ class Video_info:
         # Find the row (city) with the minimum processing time.
         min_row = df.loc[df['Video processing time (in s)'].idxmin()]
 
-        # Organize all stats into a dictionary for easy consumption.
-        stats = {
-            "average": avg_time,                        # Average processing time (seconds)
-            "std_dev": sd_time,                        # Standard deviation (seconds)
-            "max_city": max_row['City'],               # City with the longest processing time
-            "max_value": max_row['Video processing time (in s)'],  # Maximum time (seconds)
-            "min_city": min_row['City'],               # City with the shortest processing time
-            "min_value": min_row['Video processing time (in s)']   # Minimum time (seconds)
-        }
+        logger.info(f"The average video processing time is {avg_time:.2f} seconds.")
+        logger.info(f"The standard deviation of video processing time is {sd_time:.2f} seconds.")
+        logger.info(f"The city with the longest processing time is '{max_row['City']}' with {max_row['Video processing time (in s)']:.2f} seconds.")  # noqa:E501
+        logger.info(f"The city with the shortest processing time is '{min_row['City']}' with {min_row['Video processing time (in s)']:.2f} seconds.")  # noqa:E501
 
-        # Return the computed statistics.
-        return stats
-
-    def count_cities_by_continent(self, csv_file):
+    def count_cities_by_continent(self, df):
         """
         Counts how many cities are from each continent in the provided CSV file.
 
@@ -151,4 +128,70 @@ class Video_info:
         Returns:
             pandas.Series: Number of cities per continent.
         """
-        return csv_file['Continent'].value_counts()
+        counts = df['Continent'].value_counts()
+
+        logger.info("Number of cities per continent:")
+        for continent, count in counts.items():
+            logger.info(f"- {continent}: {count}")
+
+    def get_value(self, df, column_name1, column_value1, column_name2, column_value2, target_column):
+        """
+        Retrieves a value from the target_column based on the condition
+        that both column_name1 matches column_value1 and column_name2 matches column_value2.
+
+        Parameters:
+        df (pandas.DataFrame): The DataFrame containing the mapping file.
+        column_name1 (str): The first column to search for the matching value.
+        column_value1 (str): The value to search for in column_name1.
+        column_name2 (str or None): The second column to search for the matching value (optional).
+        column_value2 (str or None): The value to search for in column_name2. If "unknown",
+                                     the value is treated as NaN.
+        target_column (str): The column from which to retrieve the corresponding value.
+
+        Returns:
+        Any: The value from target_column that corresponds to the matching values in both
+             column_name1 and column_name2.
+        """
+        # Normalise column_name1 values
+        df[column_name1] = df[column_name1].astype(str).str.strip().str.lower()
+        column_value1 = str(column_value1).strip().lower()
+
+        # If no second condition is given
+        if column_name2 is None and column_value2 is None:
+            filtered_df = df[df[column_name1] == column_value1]
+
+        else:
+            # Normalise column_name2 values
+            df[column_name2] = df[column_name2].astype(str).str.strip().str.lower()
+
+            if column_value2 == "unknown":
+                column_value2 = float('nan')
+            else:
+                column_value2 = str(column_value2).strip().lower()
+
+            if pd.isna(column_value2):
+                filtered_df = df[(df[column_name1] == column_value1) & (df[column_name2].isna())]
+            else:
+                filtered_df = df[(df[column_name1] == column_value1) & (df[column_name2] == column_value2)]
+
+        if not filtered_df.empty:
+            return filtered_df.iloc[0][target_column]
+        else:
+            return None
+
+    def iso2_to_flag(self, iso2):
+        if iso2 is None:
+            # Return a placeholder or an empty string if the ISO-2 code is not available
+            logger.debug("Set ISO-2 to Kosovo.")
+            return "🇽🇰"
+        return chr(ord('🇦') + (ord(iso2[0]) - ord('A'))) + chr(ord('🇦') + (ord(iso2[1]) - ord('A')))
+
+    def iso3_to_iso2(self, iso3_code):
+        try:
+            # Find the country by ISO-3 code
+            country = pycountry.countries.get(alpha_3=iso3_code)
+            # Return the ISO-2 code
+            return country.alpha_2 if country else None
+        except AttributeError or LookupError as e:
+            logger.debug(f"Converting up ISO-3 {iso3_code} to ISO-2 returned error: {e}.")
+            return None

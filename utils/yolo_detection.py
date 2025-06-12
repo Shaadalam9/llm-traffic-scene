@@ -38,7 +38,7 @@ class YOLO_detection:
 
         Instance Variables:
             self.model (str): The model configuration loaded from common.get_configs("model").
-            self.resolution (str): The video resolution. Initialized as None and set later when needed.
+            self.resolution (str): The video resolution. Initialised as None and set later when needed.
             self.video_title (str): The title of the video.
         """
         self.model = common.get_configs("model")

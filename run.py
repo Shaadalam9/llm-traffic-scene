@@ -4,24 +4,29 @@ from logmod import logs
 from utils.yolo_detection import YOLO_detection
 from utils.information import Video_info
 from utils.analysis import Analysis_class
+from utils.figures import Plots
 import shutil
 import os
 import pandas as pd
 
-# 1. Initialize logging with config-specified level and color output.
+# Initialise logging with config-specified level and color output.
 logs(show_level=common.get_configs("logger_level"), show_color=True)
-logger = CustomLogger(__name__)  # Custom logger for standardized log messages
+logger = CustomLogger(__name__)  # Custom logger for standardised log messages
 
-# 2. Instantiate main processing classes for detection, info analysis, and general analysis.
+# Instantiate main processing classes for detection, info analysis, and general analysis.
 detection = YOLO_detection()   # For YOLO object detection on videos
 info = Video_info()            # For gathering video information/statistics
 analysis = Analysis_class()    # For CSV reading and analytical calculations
+plots = Plots()                # For plotting
 
-# 3. Load file paths and operational flags from the central config.
+# Load file paths and operational flags from the central config.
 video_folder = common.get_configs("videos")             # Directory containing videos to process
 data_path = common.get_configs("data")                  # Directory to store per-video CSV detection results
 delete_runs_files = common.get_configs("delete_runs_files")  # Flag: delete YOLO 'runs' output after processing
 mapping_file = common.get_configs("mapping")            # Path to the main city/country mapping CSV
+
+# Read the main city/country mapping CSV (could include other columns like continent, region, etc.)
+df_mapping = pd.read_csv(mapping_file)
 
 # --- Run YOLO detection on input videos (if always_analyse flag is set) ---
 if common.get_configs("always_analyse"):
@@ -73,13 +78,13 @@ dfs = analysis.read_csv_files(data_path)
 
 # --- Log various high-level video statistics ---
 # Each of these methods outputs summary stats (could be total videos, city-by-continent stats, etc.)
-logger.info(info.analyse_video_files(video_folder))                # Summarize input video set
-logger.info(info.count_cities_by_continent(mapping_file))          # Count how many cities are per continent
-logger.info(info.video_processing_time_stats(df=mapping_file))     # Analyze/Log processing times
+info.analyse_video_files(video_folder)                # Summarise input video set
+info.count_cities_by_continent(df_mapping)          # Count how many cities are per continent
+info.video_processing_time_stats(df_mapping)     # Analyse/Log processing times
 
 # --- Count specific YOLO object types in each video/country ---
 # Define which object types (by YOLO's class IDs) we're interested in aggregating.
-target_yolo_ids = [0, 1, 2, 3, 5, 7, 9, 11, 67]  # Only count these YOLO class IDs
+target_yolo_ids = [0, 1, 2, 3, 5, 7, 9]  # Only count these YOLO class IDs
 
 # Map YOLO class IDs to their human-readable object names
 yolo_id_to_object = {
@@ -89,43 +94,59 @@ yolo_id_to_object = {
     3: "motorbike",
     5: "bus",
     7: "truck",
-    9: "traffic light",
-    11: "stop sign",
-    67: "cellphone"
+    9: "traffic light"
 }
 
 # For each country (or video/city), count the appearances of each object of interest.
 result = {}   # Will hold final counts for each city/video
-for country, df in dfs.items():
-    country_counts = {}
+for city, df in dfs.items():
+    city_counts = {}
     for yolo_id in target_yolo_ids:
         # Get the human-readable object name, fallback to just the ID if not mapped
         object_name = yolo_id_to_object.get(yolo_id, str(yolo_id))
+
         # Use analysis helper to count instances of this object in the DataFrame
         count = analysis.count_object(df, yolo_id)
-        country_counts[object_name] = count
-    result[country] = country_counts  # Store the results for this city/video
+        city_counts[object_name] = count
+
+        match = df_mapping[df_mapping['City'] == city]
+        if not match.empty:
+            city_counts['iso'] = match.iloc[0]['iso']          # If your mapping column is called 'iso'
+            city_counts['country'] = match.iloc[0]['Country']   # Column 'Country'
+        else:
+            city_counts['iso'] = None
+            city_counts['country'] = None
+    result[city] = city_counts  # Store the results for this city/video
 
 # --- Update mapping file (CSV) with the new object counts ---
-
-# Read the main city/country mapping CSV (could include other columns like continent, region, etc.)
-df = pd.read_csv(mapping_file)
-
 for city, values in result.items():
     # Find the row(s) in the mapping CSV where 'City' matches this city/video name
-    idx = df[df['City'] == city].index
+    idx = df_mapping[df_mapping['City'] == city].index
     if len(idx) == 0:
         logger.error(f"Warning: {city} not found in CSV.")   # Alert if the city name doesn't match any row
         continue
     idx = idx[0]  # Take the first matching row index
     # For each counted object, update the corresponding column in the DataFrame
     for key, val in values.items():
-        if key in df.columns:
-            df.at[idx, key] = val   # Set the cell value (overwriting old data, if any)
+        if key in df_mapping.columns:
+            df_mapping.at[idx, key] = val   # Set the cell value (overwriting old data, if any)
 
 # --- Save the updated mapping with counts ---
 
 # Ensure output directory exists and write the DataFrame to a new CSV file
 output_dir = "_output"
 os.makedirs(output_dir, exist_ok=True)
-df.to_csv(os.path.join(output_dir, "mapping_updated.csv"), index=False)
+df_mapping.to_csv(os.path.join(output_dir, "mapping_updated.csv"), index=False)
+
+plots.stack_plot(result,
+                 df_mapping,
+                 order_by="alphabetical",
+                 title_text="",
+                 filename="stack_alphabetical",
+                 font_size_captions=30,
+                 legend_x=0.92,
+                 legend_y=0.21,
+                 legend_spacing=0.03,
+                 left_margin=0,
+                 right_margin=0
+                 )

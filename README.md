@@ -58,6 +58,10 @@ Configuration of the project needs to be defined in `config`. Please use the `de
 - **`plotly_template`**: Defines the template for Plotly figures.
 - **`logger_level`**: Level of console output. Can be: debug, info, warning, error.
 
+### Detection of objects
+[![Distribution of speed](figures/stack_alphabetical.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/stack_alphabetical.html)
+Different objects detected in the videos (sorted in alphabetical order).
+
 
 ## Contact
 If you have any questions or suggestions, feel free to reach out to md_shadab_alam@outlook.com or pavlo.bazilinskyy@gmail.com.
