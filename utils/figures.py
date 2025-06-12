@@ -7,6 +7,7 @@ import shutil
 import plotly as py
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from collections import defaultdict
 from .information import Video_info
 
 # Suppress the specific FutureWarning
@@ -146,6 +147,28 @@ class Plots():
                 reverse=True
             )
 
+        elif order_by == "continent_average":
+            # Group cities by continent
+            continent_cities = defaultdict(list)
+            for city in final_dict:
+                if any(final_dict[city].get(k, 0) > 0 for k in keys_of_interest):
+                    continent = final_dict[city].get('continent', 'Unknown')
+                    continent_cities[continent].append(city)
+
+            # Sort cities within each continent by average
+            for continent in continent_cities:
+                continent_cities[continent].sort(
+                    key=lambda city: (
+                        sum(final_dict[city].get(k, 0) for k in keys_of_interest) / len(keys_of_interest)
+                    ),
+                    reverse=True
+                )
+
+            # Flatten the result, sorting continents alphabetically
+            cities_ordered = []
+            for continent in sorted(continent_cities):
+                cities_ordered.extend(continent_cities[continent])
+
         # Determine how many cities will be in each column
         num_cities_per_col = len(cities_ordered) // 2 + len(cities_ordered) % 2  # Split cities into two groups
 
@@ -252,7 +275,7 @@ class Plots():
             sum(final_dict[city].get(k, 0) for k in keys_of_interest)
             for city in cities_ordered
         ) if cities_ordered else 0
-        max_value += 10
+        max_value += 15
 
         # Identify the last row for each column where the last city is plotted
         last_row_left_column = num_cities_per_col * 2  # The last row in the left column

@@ -111,11 +111,13 @@ for city, df in dfs.items():
 
         match = df_mapping[df_mapping['City'] == city]
         if not match.empty:
-            city_counts['iso'] = match.iloc[0]['iso']          # If your mapping column is called 'iso'
-            city_counts['country'] = match.iloc[0]['Country']   # Column 'Country'
+            city_counts['iso'] = match.iloc[0]['iso']  # If your mapping column is called 'iso'
+            city_counts['country'] = match.iloc[0]['Country']  # Column 'Country'
+            city_counts['continent'] = match.iloc[0]['Continent']  # Column 'Continent'
         else:
             city_counts['iso'] = None
             city_counts['country'] = None
+            city_counts['continent'] = None
     result[city] = city_counts  # Store the results for this city/video
 
 # --- Update mapping file (CSV) with the new object counts ---
@@ -126,6 +128,7 @@ for city, values in result.items():
         logger.error(f"Warning: {city} not found in CSV.")   # Alert if the city name doesn't match any row
         continue
     idx = idx[0]  # Take the first matching row index
+
     # For each counted object, update the corresponding column in the DataFrame
     for key, val in values.items():
         if key in df_mapping.columns:
@@ -144,7 +147,33 @@ plots.stack_plot(result,
                  title_text="",
                  filename="stack_alphabetical",
                  font_size_captions=30,
-                 legend_x=0.92,
+                 legend_x=0.87,
+                 legend_y=0.21,
+                 legend_spacing=0.03,
+                 left_margin=0,
+                 right_margin=0
+                 )
+
+plots.stack_plot(result,
+                 df_mapping,
+                 order_by="average",
+                 title_text="",
+                 filename="stack_average",
+                 font_size_captions=30,
+                 legend_x=0.87,
+                 legend_y=0.21,
+                 legend_spacing=0.03,
+                 left_margin=0,
+                 right_margin=0
+                 )
+
+plots.stack_plot(result,
+                 df_mapping,
+                 order_by="continent_average",
+                 title_text="",
+                 filename="continent_average",
+                 font_size_captions=30,
+                 legend_x=0.87,
                  legend_y=0.21,
                  legend_spacing=0.03,
                  left_margin=0,

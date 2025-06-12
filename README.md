@@ -59,8 +59,14 @@ Configuration of the project needs to be defined in `config`. Please use the `de
 - **`logger_level`**: Level of console output. Can be: debug, info, warning, error.
 
 ### Detection of objects
-[![Distribution of speed](figures/stack_alphabetical.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/stack_alphabetical.html)
-Different objects detected in the videos (sorted in alphabetical order).
+[![Alphabetical Sorting](figures/stack_alphabetical.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/stack_alphabetical.html)
+Distribution of different objects detected in the videos, sorted in alphabetical order..
+
+[![Average Value Sorting](figures/stack_average.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/stack_average.html)
+Distribution of objects detected in the videos, sorted by the average values of object counts..
+
+[![Continent and Average Value Sorting](figures/continent_average.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/continent_average.html)
+Distribution of objects detected in the videos, first grouped by continent and then sorted by average values within each continent..
 
 
 ## Contact
