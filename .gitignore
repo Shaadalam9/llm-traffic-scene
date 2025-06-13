@@ -10,6 +10,8 @@ __pycache__/
 .DS_Store
 .Python
 data/
+data_0.7/
+data_0.8/
 videos/
 build/
 develop-eggs/

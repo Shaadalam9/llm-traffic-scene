@@ -43,16 +43,20 @@ python3 analysis.py
 
 ### Configuration of project
 Configuration of the project needs to be defined in `config`. Please use the `default.config` file for the required structure of the file. If no custom config file is provided, `default.config` is used. The config file has the following parameters:
-- **`videos`**: Directories containing the videos generated from Veo3.
-- **`prediction_mode`**: Configures YOLO for object detection.
+- **`videos`**: Directory containing the videos generated from Veo3.
+- **`mapping`**: CSV file containg the information about the cities.
+- **`data`**: Directory containing the YOLO output.
+- **`snaps`**: Directory containing the first frame from each generated video file.
+- **`confidence`**: Sets the confidence threshold parameter for YOLO.
+- **`model`**: Specifies the YOLO model to use; supported/tested versions include `v8x` and `v11x`.
+- **`tracking_mode`**: Configures YOLO for object tracking.
 - **`always_analyse`**: Always conduct analysis even when pickle files are present (good for testing).
 - **`display_frame_tracking`**: Displays the frame tracking during analysis.
 - **`save_annotated_img`**: Saves the annotated frames produced by YOLO.
+- **`save_tracked_img`**: Saves the tracked frames produced by YOLO.
 - **`delete_labels`**: Deletes label files from YOLO output.
 - **`delete_frames`**: Deletes frames from YOLO output.
 - **`delete_runs_files`**: Deletes files containing YOLO output after analysis.
-- **`model`**: Specifies the YOLO model to use; supported/tested versions include `v8x` and `v11x`.
-- **`confidence`**: Sets the confidence threshold parameter for YOLO.
 - **`font_family`**: Specifies the font family to be used in outputs.
 - **`font_size`**: Specifies the font size to be used in outputs.
 - **`plotly_template`**: Defines the template for Plotly figures.
@@ -66,7 +70,7 @@ Distribution of different objects detected in the videos, sorted in alphabetical
 Distribution of objects detected in the videos, sorted by the average values of object counts..
 
 [![Continent and Average Value Sorting](figures/continent_average.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/continent_average.html)
-Distribution of objects detected in the videos, first grouped by continent and then sorted by average values within each continent..
+Distribution of objects detected in the videos, first grouped by continent and then sorted by average values within each continent.
 
 
 ## Contact

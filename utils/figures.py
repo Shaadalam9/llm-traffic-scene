@@ -235,7 +235,6 @@ class Plots():
             # build up textual label for left column
             city_label = self.info.iso2_to_flag(self.info.iso3_to_iso2(
                 iso_code)) + " " + city + " " + "(" + iso_code + ")"
-
             row = i + 1
 
             # Sum of all keys of interest for this city

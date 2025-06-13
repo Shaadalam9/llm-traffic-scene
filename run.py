@@ -15,7 +15,7 @@ logger = CustomLogger(__name__)  # Custom logger for standardised log messages
 
 # Instantiate main processing classes for detection, info analysis, and general analysis.
 detection = YOLO_detection()   # For YOLO object detection on videos
-info = Video_info()            # For gathering video information/statistics
+video_info = Video_info()            # For gathering video information/statistics
 analysis = Analysis_class()    # For CSV reading and analytical calculations
 plots = Plots()                # For plotting
 
@@ -59,7 +59,7 @@ if common.get_configs("always_analyse"):
                 # Set the video title for downstream YOLO functions (used for labeling outputs)
                 detection.set_video_title(name_without_ext)
                 # Run YOLO in tracking mode (processes video, produces a CSV in 'runs/detect/')
-                detection.tracking_mode(full_path, common.get_configs("videos"))
+                detection.tracking_mode(full_path, video_fps=25)
 
                 # Move the newly created CSV from YOLO's default output directory to the target data directory
                 new_file_path = os.path.join("runs", "detect", f"{name_without_ext}.csv")
@@ -78,9 +78,9 @@ dfs = analysis.read_csv_files(data_path)
 
 # --- Log various high-level video statistics ---
 # Each of these methods outputs summary stats (could be total videos, city-by-continent stats, etc.)
-info.analyse_video_files(video_folder)                # Summarise input video set
-info.count_cities_by_continent(df_mapping)          # Count how many cities are per continent
-info.video_processing_time_stats(df_mapping)     # Analyse/Log processing times
+video_info.analyse_video_files(video_folder)                # Summarise input video set
+video_info.count_cities_by_continent(df_mapping)          # Count how many cities are per continent
+video_info.video_processing_time_stats(df_mapping)     # Analyse/Log processing times
 
 # --- Count specific YOLO object types in each video/country ---
 # Define which object types (by YOLO's class IDs) we're interested in aggregating.

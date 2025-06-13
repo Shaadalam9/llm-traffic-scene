@@ -5,6 +5,8 @@ import os
 import statistics
 import pandas as pd
 import pycountry
+import subprocess
+import json
 
 logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
@@ -52,10 +54,13 @@ class Video_info:
             video_extensions = ('.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.mpeg', '.mpg')
 
         files_info = []
+
         # List all files in the directory and check if they are video files
         for filename in os.listdir(folder_path):
             if filename.lower().endswith(video_extensions):
                 full_path = os.path.join(folder_path, filename)
+                info = self.get_video_info(full_path)
+                self.print_video_info(info)
                 if os.path.isfile(full_path):
                     size = os.path.getsize(full_path)
                     files_info.append((filename, size))
@@ -117,6 +122,51 @@ class Video_info:
         logger.info(f"The standard deviation of video processing time is {sd_time:.2f} seconds.")
         logger.info(f"The city with the longest processing time is '{max_row['City']}' with {max_row['Video processing time (in s)']:.2f} seconds.")  # noqa:E501
         logger.info(f"The city with the shortest processing time is '{min_row['City']}' with {min_row['Video processing time (in s)']:.2f} seconds.")  # noqa:E501
+
+    def get_video_info(self, video_path):
+        cmd = [
+            'ffprobe',
+            '-v', 'error',
+            '-show_entries', 'format:stream',
+            '-of', 'json',
+            video_path
+        ]
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        info = json.loads(result.stdout)
+
+        format_info = info.get('format', {})
+        streams = info.get('streams', [])
+
+        video_stream = next((s for s in streams if s['codec_type'] == 'video'), None)
+        audio_stream = next((s for s in streams if s['codec_type'] == 'audio'), None)
+
+        data = {
+            'file': os.path.basename(video_path),
+            'duration': float(format_info.get('duration', 0)),
+            'size_MB': round(int(format_info.get('size', 0)) / (1024 * 1024), 2),
+            'bitrate_kbps': round(int(format_info.get('bit_rate', 0)) / 1000, 2) if format_info.get('bit_rate') else None,  # noqa:E501
+            'container': format_info.get('format_name', ''),
+        }
+        if video_stream:
+            data.update({
+                'video_codec': video_stream.get('codec_name', ''),
+                'width': video_stream.get('width', ''),
+                'height': video_stream.get('height', ''),
+                'resolution': f"{video_stream.get('width', '')}x{video_stream.get('height', '')}",
+                'fps': eval(video_stream['r_frame_rate']) if 'r_frame_rate' in video_stream else '',
+                'aspect_ratio': video_stream.get('display_aspect_ratio', ''),
+                'color_space': video_stream.get('color_space', ''),
+                'color_depth': f"{video_stream.get('bits_per_raw_sample', '')} bit" if video_stream.get('bits_per_raw_sample') else '',  # noqa:E501
+                'chroma_subsampling': video_stream.get('chroma_subsampling', ''),
+            })
+        if audio_stream:
+            data.update({
+                'audio_codec': audio_stream.get('codec_name', ''),
+                'audio_channels': audio_stream.get('channels', ''),
+                'audio_sample_rate': audio_stream.get('sample_rate', ''),
+                'audio_language': audio_stream.get('tags', {}).get('language', ''),
+            })
+        return data
 
     def count_cities_by_continent(self, df):
         """
@@ -190,8 +240,29 @@ class Video_info:
         try:
             # Find the country by ISO-3 code
             country = pycountry.countries.get(alpha_3=iso3_code)
+
             # Return the ISO-2 code
             return country.alpha_2 if country else None
+
         except AttributeError or LookupError as e:
             logger.debug(f"Converting up ISO-3 {iso3_code} to ISO-2 returned error: {e}.")
             return None
+
+    def print_video_info(self, info):
+        print(f"File: {info.get('file')}")
+        print(f"  Duration: {info.get('duration')} sec")
+        print(f"  Size: {info.get('size_MB')} MB")
+        print(f"  Bitrate: {info.get('bitrate_kbps')} kbps")
+        print(f"  Container: {info.get('container')}")
+        print(f"  Video Codec: {info.get('video_codec')}")
+        print(f"  Resolution: {info.get('resolution')}")
+        print(f"  FPS: {info.get('fps')}")
+        print(f"  Aspect Ratio: {info.get('aspect_ratio')}")
+        print(f"  Color Space: {info.get('color_space')}")
+        print(f"  Color Depth: {info.get('color_depth')}")
+        print(f"  Chroma Subsampling: {info.get('chroma_subsampling')}")
+        print(f"  Audio Codec: {info.get('audio_codec')}")
+        print(f"  Audio Channels: {info.get('audio_channels')}")
+        print(f"  Audio Sample Rate: {info.get('audio_sample_rate')}")
+        print(f"  Audio Language: {info.get('audio_language')}")
+        print('-' * 50)
