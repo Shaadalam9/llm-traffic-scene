@@ -8,7 +8,7 @@ import plotly as py
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from collections import defaultdict
-from .information import Video_info
+from utils.information import Video_info
 
 # Suppress the specific FutureWarning
 warnings.filterwarnings("ignore", category=FutureWarning, module="plotly")
