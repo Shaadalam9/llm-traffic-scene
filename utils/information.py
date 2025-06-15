@@ -7,9 +7,12 @@ import pandas as pd
 import pycountry
 import subprocess
 import json
+from utils.sound import Video_sound
+import numpy as np
 
 logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
+sound_class = Video_sound()
 
 
 class Video_info:
@@ -54,6 +57,7 @@ class Video_info:
             video_extensions = ('.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.mpeg', '.mpg')
 
         files_info = []
+        db_results = {}
 
         # List all files in the directory and check if they are video files
         for filename in os.listdir(folder_path):
@@ -64,6 +68,13 @@ class Video_info:
                 if os.path.isfile(full_path):
                     size = os.path.getsize(full_path)
                     files_info.append((filename, size))
+                    try:
+                        name_without_ext, _ = os.path.splitext(filename)
+                        db = sound_class.audio_db_from_video(full_path)
+                        db_results[name_without_ext] = float(db) if isinstance(db, np.floating) else db
+                    except Exception:
+                        name_without_ext, _ = os.path.splitext(filename)
+                        db_results[name_without_ext] = None  # or log the error
 
         if not files_info:
             logger.info("No video files found in folder: %s", folder_path)
@@ -79,6 +90,20 @@ class Video_info:
         logger.info(f"The standard deviation in the size of the videos is {std_dev_size_MB} MB.")
         logger.info(f"The largest video file is '{max_file}' with size {Video_info.convert_to_mb(max_size)} MB.")
         logger.info(f"The smallest video file is '{min_file}' with size {Video_info.convert_to_mb(min_size)} MB.")
+
+        valid_db_results = {k: v for k, v in db_results.items() if v is not None}
+        if valid_db_results:
+            max_db_file = max(valid_db_results, key=valid_db_results.get)  # type: ignore
+            min_db_file = min(valid_db_results, key=valid_db_results.get)  # type: ignore
+            max_db_value = valid_db_results[max_db_file]
+            min_db_value = valid_db_results[min_db_file]
+
+            logger.info(f"The file with the maximum dB value is '{max_db_file}' with {max_db_value} dB.")
+            logger.info(f"The file with the minimum dB value is '{min_db_file}' with {min_db_value} dB.")
+        else:
+            logger.info("No valid dB values were computed for the video files.")
+
+        return db_results
 
     def video_processing_time_stats(self, df):
         """

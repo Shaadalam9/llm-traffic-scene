@@ -5,6 +5,7 @@ import warnings
 import os
 import shutil
 import plotly as py
+import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from collections import defaultdict
@@ -456,3 +457,41 @@ class Plots():
                                 scale=SCALE,
                                 save_eps=True,
                                 save_final=True)
+
+    def plot_choropleth(self, df, column_name=None, title_text=None, filename=None):
+        """
+        Reads a CSV file with country sound data and plots a choropleth map.
+
+        Parameters:
+            csv_path (str): Path to the CSV file containing 'Country', 'iso', and 'sound' columns.
+        """
+        try:
+            # Load and clean data
+            df_clean = df[['Country', 'iso', column_name]].dropna()
+
+            # Create choropleth map
+            fig = px.choropleth(
+                df_clean,
+                locations="iso",
+                color="sound",
+                hover_name="Country",
+                color_continuous_scale="Inferno_r",
+                projection="natural earth",
+                title=title_text
+            )
+
+            fig.update_layout(
+                geo=dict(showframe=False, showcoastlines=True),
+                margin={"r": 0, "t": 50, "l": 0, "b": 0},
+                coloraxis_colorbar=dict(title="")
+            )
+
+            fig.show()
+            self.save_plotly_figure(fig=fig,
+                                    filename=filename,
+                                    scale=SCALE,
+                                    save_eps=True,
+                                    save_final=True)
+
+        except Exception as e:
+            print(f"Error generating choropleth map: {e}")

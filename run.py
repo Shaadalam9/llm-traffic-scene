@@ -8,6 +8,8 @@ from utils.figures import Plots
 import shutil
 import os
 import pandas as pd
+import math
+import subprocess
 
 # Initialise logging with config-specified level and color output.
 logs(show_level=common.get_configs("logger_level"), show_color=True)
@@ -78,7 +80,7 @@ dfs = analysis.read_csv_files(data_path)
 
 # --- Log various high-level video statistics ---
 # Each of these methods outputs summary stats (could be total videos, city-by-continent stats, etc.)
-video_info.analyse_video_files(video_folder)                # Summarise input video set
+sounds = video_info.analyse_video_files(video_folder)                # Summarise input video set
 video_info.count_cities_by_continent(df_mapping)          # Count how many cities are per continent
 video_info.video_processing_time_stats(df_mapping)     # Analyse/Log processing times
 
@@ -120,6 +122,13 @@ for city, df in dfs.items():
             city_counts['continent'] = None
     result[city] = city_counts  # Store the results for this city/video
 
+if sounds:
+    for city in result:
+        if city in sounds and sounds[city] is not None:
+            result[city]['sound'] = float(sounds[city])
+        else:
+            result[city]['sound'] = math.nan
+
 # --- Update mapping file (CSV) with the new object counts ---
 for city, values in result.items():
     # Find the row(s) in the mapping CSV where 'City' matches this city/video name
@@ -140,6 +149,12 @@ for city, values in result.items():
 output_dir = "_output"
 os.makedirs(output_dir, exist_ok=True)
 df_mapping.to_csv(os.path.join(output_dir, "mapping_updated.csv"), index=False)
+
+plots.plot_choropleth(df_mapping,
+                      column_name='sound',
+                      title_text="",
+                      filename="sound"
+                      )
 
 plots.stack_plot(result,
                  df_mapping,
@@ -179,3 +194,6 @@ plots.stack_plot(result,
                  left_margin=0,
                  right_margin=0
                  )
+
+# Run the script for frame generation
+subprocess.run(["python", "utils/helper.py"])

@@ -72,6 +72,10 @@ Distribution of objects detected in the videos, sorted by the average values of 
 [![Continent and Average Value Sorting](figures/continent_average.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/continent_average.html)
 Distribution of objects detected in the videos, first grouped by continent and then sorted by average values within each continent.
 
+### Sound from the videos of different cities
+[![Sound from the videos](figures/sound.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/sound.html)
+Sound from different countries (measured in dB).
+
 ### First frame from Veo 3 generated videos
 
 #### Africa
