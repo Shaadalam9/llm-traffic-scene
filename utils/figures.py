@@ -124,8 +124,8 @@ class Plots():
         if message:
             logger.info(message)
 
-        keys_of_interest = ["person", "bicycle", "car", "motorbike", "bus",
-                            "truck", "traffic light"]
+        keys_of_interest = ["Persons", "Cars", "Cycles", "Motorbikes",
+                            "Buses", "Trucks", "Traffic lights"]
 
         if order_by == "alphabetical":
             cities_ordered = sorted(
@@ -150,10 +150,11 @@ class Plots():
 
         elif order_by == "continent_average":
             # Group cities by continent
+            print(final_dict)
             continent_cities = defaultdict(list)
             for city in final_dict:
                 if any(final_dict[city].get(k, 0) > 0 for k in keys_of_interest):
-                    continent = final_dict[city].get('continent', 'Unknown')
+                    continent = final_dict[city].get('continent') or 'Unknown'
                     continent_cities[continent].append(city)
 
             # Sort cities within each continent by average
@@ -188,11 +189,12 @@ class Plots():
 
         # Plot left column (first half of cities)
         for i, city in enumerate(cities_ordered[:num_cities_per_col]):
-            iso_code = self.info.get_value(df_mapping, "City", city, None, None, "iso")
+
+            iso_code = self.info.get_value(df_mapping, "City", city, None, None, "ISO")
 
             # build up textual label for left column
             city_label = self.info.iso2_to_flag(self.info.iso3_to_iso2(
-                iso_code)) + " " + city + " " + "(" + iso_code + ")"
+                iso_code)) + " " + city + " " + "(" + iso_code + ")"  # type: ignore
 
             # Row for day and night
             row = i + 1
@@ -231,11 +233,14 @@ class Plots():
             )
 
         for i, city in enumerate(cities_ordered[num_cities_per_col:]):
-            iso_code = self.info.get_value(df_mapping, "City", city, None, None, "iso")
+            # parts = city_country.split("_")
+            # city = "_".join(parts[:-1])
+
+            iso_code = self.info.get_value(df_mapping, "City", city, None, None, "ISO")
 
             # build up textual label for left column
             city_label = self.info.iso2_to_flag(self.info.iso3_to_iso2(
-                iso_code)) + " " + city + " " + "(" + iso_code + ")"
+                iso_code)) + " " + city + " " + "(" + iso_code + ")"  # type: ignore
             row = i + 1
 
             # Sum of all keys of interest for this city
@@ -467,12 +472,12 @@ class Plots():
         """
         try:
             # Load and clean data
-            df_clean = df[['Country', 'iso', column_name]].dropna()
+            df_clean = df[['Country', 'ISO', column_name]].dropna()
 
             # Create choropleth map
             fig = px.choropleth(
                 df_clean,
-                locations="iso",
+                locations="ISO",
                 color="sound",
                 hover_name="Country",
                 color_continuous_scale="Inferno_r",
@@ -494,4 +499,4 @@ class Plots():
                                     save_final=True)
 
         except Exception as e:
-            print(f"Error generating choropleth map: {e}")
+            logger.error(f"Error generating choropleth map: {e}")

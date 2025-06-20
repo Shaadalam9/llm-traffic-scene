@@ -7,6 +7,7 @@ import pandas as pd
 import pycountry
 import subprocess
 import json
+import unicodedata
 from utils.sound import Video_sound
 import numpy as np
 
@@ -228,21 +229,19 @@ class Video_info:
              column_name1 and column_name2.
         """
         # Normalise column_name1 values
-        df[column_name1] = df[column_name1].astype(str).str.strip().str.lower()
-        column_value1 = str(column_value1).strip().lower()
+        df[column_name1] = df[column_name1].astype(str).map(self.normalize_str)
+        column_value1 = self.normalize_str(column_value1)
 
         # If no second condition is given
         if column_name2 is None and column_value2 is None:
             filtered_df = df[df[column_name1] == column_value1]
-
         else:
-            # Normalise column_name2 values
-            df[column_name2] = df[column_name2].astype(str).str.strip().str.lower()
-
+            # Normalize column_name2 values
+            df[column_name2] = df[column_name2].astype(str).map(self.normalize_str)
             if column_value2 == "unknown":
                 column_value2 = float('nan')
             else:
-                column_value2 = str(column_value2).strip().lower()
+                column_value2 = self.normalize_str(column_value2)
 
             if pd.isna(column_value2):
                 filtered_df = df[(df[column_name1] == column_value1) & (df[column_name2].isna())]
@@ -274,20 +273,39 @@ class Video_info:
             return None
 
     def print_video_info(self, info):
-        print(f"File: {info.get('file')}")
-        print(f"  Duration: {info.get('duration')} sec")
-        print(f"  Size: {info.get('size_MB')} MB")
-        print(f"  Bitrate: {info.get('bitrate_kbps')} kbps")
-        print(f"  Container: {info.get('container')}")
-        print(f"  Video Codec: {info.get('video_codec')}")
-        print(f"  Resolution: {info.get('resolution')}")
-        print(f"  FPS: {info.get('fps')}")
-        print(f"  Aspect Ratio: {info.get('aspect_ratio')}")
-        print(f"  Color Space: {info.get('color_space')}")
-        print(f"  Color Depth: {info.get('color_depth')}")
-        print(f"  Chroma Subsampling: {info.get('chroma_subsampling')}")
-        print(f"  Audio Codec: {info.get('audio_codec')}")
-        print(f"  Audio Channels: {info.get('audio_channels')}")
-        print(f"  Audio Sample Rate: {info.get('audio_sample_rate')}")
-        print(f"  Audio Language: {info.get('audio_language')}")
-        print('-' * 50)
+        logger.info(f"File: {info.get('file')}")
+        logger.info(f"  Duration: {info.get('duration')} sec")
+        logger.info(f"  Size: {info.get('size_MB')} MB")
+        logger.info(f"  Bitrate: {info.get('bitrate_kbps')} kbps")
+        logger.info(f"  Container: {info.get('container')}")
+        logger.info(f"  Video Codec: {info.get('video_codec')}")
+        logger.info(f"  Resolution: {info.get('resolution')}")
+        logger.info(f"  FPS: {info.get('fps')}")
+        logger.info(f"  Aspect Ratio: {info.get('aspect_ratio')}")
+        logger.info(f"  Color Space: {info.get('color_space')}")
+        logger.info(f"  Color Depth: {info.get('color_depth')}")
+        logger.info(f"  Chroma Subsampling: {info.get('chroma_subsampling')}")
+        logger.info(f"  Audio Codec: {info.get('audio_codec')}")
+        logger.info(f"  Audio Channels: {info.get('audio_channels')}")
+        logger.info(f"  Audio Sample Rate: {info.get('audio_sample_rate')}")
+        logger.info(f"  Audio Language: {info.get('audio_language')}")
+        logger.info('-' * 50)
+
+    def strip_accents(self, text):
+        """
+        Removes accents/diacritics from a string.
+        """
+        if not isinstance(text, str):
+            return text
+        text = unicodedata.normalize('NFD', text)
+        return ''.join([c for c in text if not unicodedata.combining(c)])
+
+    def normalize_str(self, text):
+        """
+        Normalize to NFC, lowercase, strip whitespace, and remove accents.
+        """
+        if not isinstance(text, str):
+            return text
+        text = unicodedata.normalize('NFC', text.strip().lower())
+        text = self.strip_accents(text)
+        return text

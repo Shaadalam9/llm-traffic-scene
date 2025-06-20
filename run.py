@@ -80,9 +80,9 @@ dfs = analysis.read_csv_files(data_path)
 
 # --- Log various high-level video statistics ---
 # Each of these methods outputs summary stats (could be total videos, city-by-continent stats, etc.)
-sounds = video_info.analyse_video_files(video_folder)                # Summarise input video set
-video_info.count_cities_by_continent(df_mapping)          # Count how many cities are per continent
-video_info.video_processing_time_stats(df_mapping)     # Analyse/Log processing times
+sounds = video_info.analyse_video_files(video_folder)  # Summarise input video set
+video_info.count_cities_by_continent(df_mapping)  # Count how many cities are per continent
+video_info.video_processing_time_stats(df_mapping)  # Analyse/Log processing times
 
 # --- Count specific YOLO object types in each video/country ---
 # Define which object types (by YOLO's class IDs) we're interested in aggregating.
@@ -90,18 +90,21 @@ target_yolo_ids = [0, 1, 2, 3, 5, 7, 9]  # Only count these YOLO class IDs
 
 # Map YOLO class IDs to their human-readable object names
 yolo_id_to_object = {
-    0: "person",
-    1: "bicycle",
-    2: "car",
-    3: "motorbike",
-    5: "bus",
-    7: "truck",
-    9: "traffic light"
+    0: "Persons",
+    1: "Bicycles",
+    2: "Cars",
+    3: "Motorbikes",
+    5: "Buses",
+    7: "Trucks",
+    9: "Traffic lights"
 }
 
 # For each country (or video/city), count the appearances of each object of interest.
 result = {}   # Will hold final counts for each city/video
-for city, df in dfs.items():
+for city_country, df in dfs.items():
+    parts = city_country.split("_")
+    city = "_".join(parts[:-1])
+    country = parts[-1]
     city_counts = {}
     for yolo_id in target_yolo_ids:
         # Get the human-readable object name, fallback to just the ID if not mapped
@@ -111,9 +114,14 @@ for city, df in dfs.items():
         count = analysis.count_object(df, yolo_id)
         city_counts[object_name] = count
 
-        match = df_mapping[df_mapping['City'] == city]
+        # Normalize city names in both DataFrame and input for matching
+        norm_city = video_info.normalize_str(city)
+        df_mapping['city_norm'] = df_mapping['City'].astype(str).map(video_info.normalize_str)
+
+        match = df_mapping[df_mapping['city_norm'] == norm_city]
+
         if not match.empty:
-            city_counts['iso'] = match.iloc[0]['iso']  # If your mapping column is called 'iso'
+            city_counts['iso'] = match.iloc[0]['ISO']  # If your mapping column is called 'iso'
             city_counts['country'] = match.iloc[0]['Country']  # Column 'Country'
             city_counts['continent'] = match.iloc[0]['Continent']  # Column 'Continent'
         else:
@@ -129,10 +137,24 @@ if sounds:
         else:
             result[city]['sound'] = math.nan
 
+# Print the cities where 'sound' is nan
+nan_sound_cities = [city for city in result if math.isnan(result[city]['sound'])]
+logger.info("Cities where the sound is not present: {nan_sound_cities}.".format(nan_sound_cities=nan_sound_cities))
+
 # --- Update mapping file (CSV) with the new object counts ---
-for city, values in result.items():
+for city_country, values in result.items():
+    parts = city_country.split("_")
+    city = "_".join(parts[:-1])
+    country = parts[-1]
+
+    city_norm = video_info.normalize_str(city)
+
+    # Normalise all cities in the mapping dataframe (once, outside the loop is better for efficiency!)
+    df_mapping['City_norm'] = df_mapping['City'].apply(video_info.normalize_str)
+
     # Find the row(s) in the mapping CSV where 'City' matches this city/video name
-    idx = df_mapping[df_mapping['City'] == city].index
+    idx = df_mapping[df_mapping['City_norm'] == city_norm].index
+
     if len(idx) == 0:
         logger.error(f"Warning: {city} not found in CSV.")   # Alert if the city name doesn't match any row
         continue
@@ -150,37 +172,37 @@ output_dir = "_output"
 os.makedirs(output_dir, exist_ok=True)
 df_mapping.to_csv(os.path.join(output_dir, "mapping_updated.csv"), index=False)
 
-plots.plot_choropleth(df_mapping,
-                      column_name='sound',
-                      title_text="",
-                      filename="sound"
-                      )
+# plots.plot_choropleth(df_mapping,
+#                       column_name='sound',
+#                       title_text="",
+#                       filename="sound"
+#                       )
 
-plots.stack_plot(result,
-                 df_mapping,
-                 order_by="alphabetical",
-                 title_text="",
-                 filename="stack_alphabetical",
-                 font_size_captions=30,
-                 legend_x=0.87,
-                 legend_y=0.21,
-                 legend_spacing=0.03,
-                 left_margin=0,
-                 right_margin=0
-                 )
+# plots.stack_plot(result,
+#                  df_mapping,
+#                  order_by="alphabetical",
+#                  title_text="",
+#                  filename="stack_alphabetical",
+#                  font_size_captions=30,
+#                  legend_x=0.87,
+#                  legend_y=0.21,
+#                  legend_spacing=0.03,
+#                  left_margin=0,
+#                  right_margin=0
+#                  )
 
-plots.stack_plot(result,
-                 df_mapping,
-                 order_by="average",
-                 title_text="",
-                 filename="stack_average",
-                 font_size_captions=30,
-                 legend_x=0.87,
-                 legend_y=0.21,
-                 legend_spacing=0.03,
-                 left_margin=0,
-                 right_margin=0
-                 )
+# plots.stack_plot(result,
+#                  df_mapping,
+#                  order_by="average",
+#                  title_text="",
+#                  filename="stack_average",
+#                  font_size_captions=30,
+#                  legend_x=0.87,
+#                  legend_y=0.21,
+#                  legend_spacing=0.03,
+#                  left_margin=0,
+#                  right_margin=0
+#                  )
 
 plots.stack_plot(result,
                  df_mapping,
