@@ -5,21 +5,22 @@ from utils.yolo_detection import YOLO_detection
 from utils.information import Video_info
 from utils.analysis import Analysis_class
 from utils.figures import Plots
+from utils.frames_extractor import VideoFrameExtractor
 import shutil
 import os
 import pandas as pd
 import math
-import subprocess
 
 # Initialise logging with config-specified level and color output.
 logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # Custom logger for standardised log messages
 
 # Instantiate main processing classes for detection, info analysis, and general analysis.
-detection = YOLO_detection()   # For YOLO object detection on videos
-video_info = Video_info()            # For gathering video information/statistics
-analysis = Analysis_class()    # For CSV reading and analytical calculations
-plots = Plots()                # For plotting
+detection = YOLO_detection()             # For YOLO object detection on videos
+video_info = Video_info()                # For gathering video information/statistics
+analysis = Analysis_class()              # For CSV reading and analytical calculations
+plots = Plots()                          # For plotting
+frame_extractor = VideoFrameExtractor()  # For frame extraction
 
 # Load file paths and operational flags from the central config.
 video_folder = common.get_configs("videos")             # Directory containing videos to process
@@ -114,9 +115,9 @@ for city_country, df in dfs.items():
         count = analysis.count_object(df, yolo_id)
         city_counts[object_name] = count
 
-        # Normalize city names in both DataFrame and input for matching
-        norm_city = video_info.normalize_str(city)
-        df_mapping['city_norm'] = df_mapping['City'].astype(str).map(video_info.normalize_str)
+        # Normalise city names in both DataFrame and input for matching
+        norm_city = video_info.normalise_str(city)
+        df_mapping['city_norm'] = df_mapping['City'].astype(str).map(video_info.normalise_str)
 
         match = df_mapping[df_mapping['city_norm'] == norm_city]
 
@@ -130,12 +131,23 @@ for city_country, df in dfs.items():
             city_counts['continent'] = None
     result[city] = city_counts  # Store the results for this city/video
 
-if sounds:
-    for city in result:
-        if city in sounds and sounds[city] is not None:
-            result[city]['sound'] = float(sounds[city])
-        else:
-            result[city]['sound'] = math.nan
+# Normalise keys in `sounds` just once, mapping them to their values
+if sounds and isinstance(sounds, dict):
+    normalised_sounds = {
+        video_info.normalise_str(key): value
+        for key, value in sounds.items()
+    }
+else:
+    normalised_sounds = {}
+
+for city, data in result.items():
+    city_norm = video_info.normalise_str(city)
+    country_norm = video_info.normalise_str(data['country'])
+    key_norm = f"{city_norm}_{country_norm}"
+    if key_norm in normalised_sounds and normalised_sounds[key_norm] is not None:
+        result[city]['sound'] = float(normalised_sounds[key_norm])
+    else:
+        result[city]['sound'] = math.nan
 
 # Print the cities where 'sound' is nan
 nan_sound_cities = [city for city in result if math.isnan(result[city]['sound'])]
@@ -143,14 +155,11 @@ logger.info("Cities where the sound is not present: {nan_sound_cities}.".format(
 
 # --- Update mapping file (CSV) with the new object counts ---
 for city_country, values in result.items():
-    parts = city_country.split("_")
-    city = "_".join(parts[:-1])
-    country = parts[-1]
 
-    city_norm = video_info.normalize_str(city)
+    city_norm = video_info.normalise_str(city)
 
     # Normalise all cities in the mapping dataframe (once, outside the loop is better for efficiency!)
-    df_mapping['City_norm'] = df_mapping['City'].apply(video_info.normalize_str)
+    df_mapping['City_norm'] = df_mapping['City'].apply(video_info.normalise_str)
 
     # Find the row(s) in the mapping CSV where 'City' matches this city/video name
     idx = df_mapping[df_mapping['City_norm'] == city_norm].index
@@ -172,37 +181,37 @@ output_dir = "_output"
 os.makedirs(output_dir, exist_ok=True)
 df_mapping.to_csv(os.path.join(output_dir, "mapping_updated.csv"), index=False)
 
-# plots.plot_choropleth(df_mapping,
-#                       column_name='sound',
-#                       title_text="",
-#                       filename="sound"
-#                       )
+plots.plot_choropleth(result,
+                      value_key='sound',
+                      title_text="",
+                      filename="sound"
+                      )
 
-# plots.stack_plot(result,
-#                  df_mapping,
-#                  order_by="alphabetical",
-#                  title_text="",
-#                  filename="stack_alphabetical",
-#                  font_size_captions=30,
-#                  legend_x=0.87,
-#                  legend_y=0.21,
-#                  legend_spacing=0.03,
-#                  left_margin=0,
-#                  right_margin=0
-#                  )
+plots.stack_plot(result,
+                 df_mapping,
+                 order_by="alphabetical",
+                 title_text="",
+                 filename="stack_alphabetical",
+                 font_size_captions=30,
+                 legend_x=0.87,
+                 legend_y=0.21,
+                 legend_spacing=0.03,
+                 left_margin=0,
+                 right_margin=0
+                 )
 
-# plots.stack_plot(result,
-#                  df_mapping,
-#                  order_by="average",
-#                  title_text="",
-#                  filename="stack_average",
-#                  font_size_captions=30,
-#                  legend_x=0.87,
-#                  legend_y=0.21,
-#                  legend_spacing=0.03,
-#                  left_margin=0,
-#                  right_margin=0
-#                  )
+plots.stack_plot(result,
+                 df_mapping,
+                 order_by="average",
+                 title_text="",
+                 filename="stack_average",
+                 font_size_captions=30,
+                 legend_x=0.87,
+                 legend_y=0.21,
+                 legend_spacing=0.03,
+                 left_margin=0,
+                 right_margin=0
+                 )
 
 plots.stack_plot(result,
                  df_mapping,
@@ -218,4 +227,4 @@ plots.stack_plot(result,
                  )
 
 # Run the script for frame generation
-subprocess.run(["python", "utils/helper.py"])
+frame_extractor.process_all_videos()

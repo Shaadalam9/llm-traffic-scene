@@ -229,19 +229,19 @@ class Video_info:
              column_name1 and column_name2.
         """
         # Normalise column_name1 values
-        df[column_name1] = df[column_name1].astype(str).map(self.normalize_str)
-        column_value1 = self.normalize_str(column_value1)
+        df[column_name1] = df[column_name1].astype(str).map(self.normalise_str)
+        column_value1 = self.normalise_str(column_value1)
 
         # If no second condition is given
         if column_name2 is None and column_value2 is None:
             filtered_df = df[df[column_name1] == column_value1]
         else:
             # Normalize column_name2 values
-            df[column_name2] = df[column_name2].astype(str).map(self.normalize_str)
+            df[column_name2] = df[column_name2].astype(str).map(self.normalise_str)
             if column_value2 == "unknown":
                 column_value2 = float('nan')
             else:
-                column_value2 = self.normalize_str(column_value2)
+                column_value2 = self.normalise_str(column_value2)
 
             if pd.isna(column_value2):
                 filtered_df = df[(df[column_name1] == column_value1) & (df[column_name2].isna())]
@@ -300,9 +300,9 @@ class Video_info:
         text = unicodedata.normalize('NFD', text)
         return ''.join([c for c in text if not unicodedata.combining(c)])
 
-    def normalize_str(self, text):
+    def normalise_str(self, text):
         """
-        Normalize to NFC, lowercase, strip whitespace, and remove accents.
+        Normalise to NFC, lowercase, strip whitespace, and remove accents.
         """
         if not isinstance(text, str):
             return text

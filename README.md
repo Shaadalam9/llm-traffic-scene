@@ -82,40 +82,40 @@ Sound from different countries (measured in dB).
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/Cairo.png?raw=true" alt="Cairo" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Kampala.png?raw=true" alt="Kampala" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Accra.png?raw=true" alt="Accra" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Algiers.png?raw=true" alt="Algiers" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Accra_Ghana.png?raw=true" alt="Accra_Ghana" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Algiers_Algeria.png?raw=true" alt="Algiers_Algeria" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Asmara_Eritrea.png?raw=true" alt="Asmara_Eritrea" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Banjul_Gambia.png?raw=true" alt="Banjul_Gambia" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Cairo</b></td>
-    <td align="center"><b>Kampala</b></td>
-    <td align="center"><b>Accra</b></td>
-    <td align="center"><b>Algiers</b></td>
+    <td align="center"><b>Accra (Ghana)</b></td>
+    <td align="center"><b>Algiers (Algeria)</b></td>
+    <td align="center"><b>Asmara (Eritrea)</b></td>
+    <td align="center"><b>Banjul (Gambia)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Lagos.png?raw=true" alt="Lagos" width="220"/></td>
-    <td align="center"><img src="readme/Tunis.png?raw=true" alt="Tunis" width="220"/></td>
-    <td align="center"><img src="readme/Asmara.png?raw=true" alt="Asmara" width="220"/></td>
-    <td align="center"><img src="readme/Banjul.png?raw=true" alt="Banjul" width="220"/></td>
+    <td align="center"><img src="readme/Bangui_CAR.png?raw=true" alt="Bangui_CAR" width="220"/></td>
+    <td align="center"><img src="readme/Cairo_Egypt.png?raw=true" alt="Cairo_Egypt" width="220"/></td>
+    <td align="center"><img src="readme/Kampala_Uganda.png?raw=true" alt="Kampala_Uganda" width="220"/></td>
+    <td align="center"><img src="readme/Kinshasa_DRC.png?raw=true" alt="Kinshasa_DRC" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Lagos</b></td>
-    <td align="center"><b>Tunis</b></td>
-    <td align="center"><b>Asmara</b></td>
-    <td align="center"><b>Banjul</b></td>
+    <td align="center"><b>Bangui (Central African Republic)</b></td>
+    <td align="center"><b>Cairo (Egypt)</b></td>
+    <td align="center"><b>Kampala (Uganda)</b></td>
+    <td align="center"><b>Kinshasa (DR Congo)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Bangui.png?raw=true" alt="Bangui" width="220"/></td>
-    <td align="center"><img src="readme/N' Djamena.png?raw=true" alt="N'Djamena" width="220"/></td>
-    <td align="center"><img src="readme/Kinshasa.png?raw=true" alt="Kinshasa" width="220"/></td>
-    <td align="center"><img src="readme/Zanzibar.png?raw=true" alt="Zanzibar" width="220"/></td>
+    <td align="center"><img src="readme/Lagos_Nigeria.png?raw=true" alt="Lagos_Nigeria" width="220"/></td>
+    <td align="center"><img src="readme/N'Djamena_Chad.png?raw=true" alt="N'Djamena_Chad" width="220"/></td>
+    <td align="center"><img src="readme/Tunis_Tunisia.png?raw=true" alt="Tunis_Tunisia" width="220"/></td>
+    <td align="center"><img src="readme/Zanzibar_Tanzania.png?raw=true" alt="Zanzibar_Tanzania" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Bangui</b></td>
-    <td align="center"><b>N'Djamena</b></td>
-    <td align="center"><b>Kinshasa</b></td>
-    <td align="center"><b>Zanzibar</b></td>
+    <td align="center"><b>Lagos (Nigeria)</b></td>
+    <td align="center"><b>N'Djamena (Chad)</b></td>
+    <td align="center"><b>Tunis (Tunisia)</b></td>
+    <td align="center"><b>Zanzibar (Tanzania)</b></td>
   </tr>
 </table>
 
@@ -124,219 +124,247 @@ Sound from different countries (measured in dB).
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/Kabul.png?raw=true" alt="Kabul" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Dhaka.png?raw=true" alt="Dhaka" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Beijing.png?raw=true" alt="Beijing" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Karachi.png?raw=true" alt="Karachi" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Almaty_Kazakhstan.png?raw=true" alt="Almaty_Kazakhstan" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Baghdad_Iraq.png?raw=true" alt="Baghdad_Iraq" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Baku_Azerbaijan.png?raw=true" alt="Baku_Azerbaijan" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Beijing_China.png?raw=true" alt="Beijing_China" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Kabul</b></td>
-    <td align="center"><b>Dhaka</b></td>
-    <td align="center"><b>Beijing</b></td>
-    <td align="center"><b>Karachi</b></td>
+    <td align="center"><b>Almaty (Kazakhstan)</b></td>
+    <td align="center"><b>Baghdad (Iraq)</b></td>
+    <td align="center"><b>Baku (Azerbaijan)</b></td>
+    <td align="center"><b>Beijing (China)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Tel Aviv.png?raw=true" alt="Tel Aviv" width="220"/></td>
-    <td align="center"><img src="readme/Jerusalem.png?raw=true" alt="Jerusalem" width="220"/></td>
-    <td align="center"><img src="readme/Tehran.png?raw=true" alt="Tehran" width="220"/></td>
-    <td align="center"><img src="readme/Muscat.png?raw=true" alt="Muscat" width="220"/></td>
+    <td align="center"><img src="readme/Bangkok_Thailand.png?raw=true" alt="Bangkok_Thailand" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Colombo_SriLanka.png?raw=true" alt="Colombo_SriLanka" width="220"/></td>
+    <td align="center"><img src="readme/Damascus_Syria.png?raw=true" alt="Damascus_Syria" width="220"/></td>
+    <td align="center"><img src="readme/Dhaka_Bangladesh.png?raw=true" alt="Dhaka_Bangladesh" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Tel Aviv</b></td>
-    <td align="center"><b>Jerusalem</b></td>
-    <td align="center"><b>Tehran</b></td>
-    <td align="center"><b>Muscat</b></td>
+    <td align="center"><b>Bangkok (Thailand)</b></td>
+    <td align="center"><b>Colombo (Sri Lanka)</b></td>
+    <td align="center"><b>Damascus (Syria)</b></td>
+    <td align="center"><b>Dhaka (Bangladesh)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Damascus.png?raw=true" alt="Damascus" width="220"/></td>
-    <td align="center"><img src="readme/Tokyo.png?raw=true" alt="Tokyo" width="220"/></td>
-    <td align="center"><img src="readme/Seoul.png?raw=true" alt="Seoul" width="220"/></td>
-    <td align="center"><img src="readme/Pyongyang.png?raw=true" alt="Pyongyang" width="220"/></td>
+    <td align="center"><img src="readme/Doha_Qatar.png?raw=true" alt="Doha_Qatar" width="220"/></td>
+    <td align="center"><img src="readme/Dubai_UAE.png?raw=true" alt="Dubai_UAE" width="220"/></td>
+    <td align="center"><img src="readme/Istanbul_Turkey.png?raw=true" alt="Istanbul_Turkey" width="220"/></td>
+    <td align="center"><img src="readme/Jakarta_Indonesia.png?raw=true" alt="Jakarta_Indonesia" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Damascus</b></td>
-    <td align="center"><b>Tokyo</b></td>
-    <td align="center"><b>Seoul</b></td>
-    <td align="center"><b>Pyongyang</b></td>
+    <td align="center"><b>Doha (Qatar)</b></td>
+    <td align="center"><b>Dubai (UAE)</b></td>
+    <td align="center"><b>Istanbul (Turkey)</b></td>
+    <td align="center"><b>Jakarta (Indonesia)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Colombo.png?raw=true" alt="Colombo" width="220"/></td>
-    <td align="center"><img src="readme/Kathmandu.png?raw=true" alt="Kathmandu" width="220"/></td>
-    <td align="center"><img src="readme/Baku.png?raw=true" alt="Baku" width="220"/></td>
-    <td align="center"><img src="readme/Bangkok.png?raw=true" alt="Bangkok" width="220"/></td>
+    <td align="center"><img src="readme/Kabul_Afghanistan.png?raw=true" alt="Kabul_Afghanistan" width="220"/></td>
+    <td align="center"><img src="readme/Karachi_Pakistan.png?raw=true" alt="Karachi_Pakistan" width="220"/></td>
+    <td align="center"><img src="readme/Kathmandu_Nepal.png?raw=true" alt="Kathmandu_Nepal" width="220"/></td>
+    <td align="center"><img src="readme/KualaLumpur_Malaysia.png?raw=true" alt="KualaLumpur_Malaysia" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Colombo</b></td>
-    <td align="center"><b>Kathmandu</b></td>
-    <td align="center"><b>Baku</b></td>
-    <td align="center"><b>Bangkok</b></td>
+    <td align="center"><b>Kabul (Afghanistan)</b></td>
+    <td align="center"><b>Karachi (Pakistan)</b></td>
+    <td align="center"><b>Kathmandu (Nepal)</b></td>
+    <td align="center"><b>Kuala Lumpur (Malaysia)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Kuala Lumpur.png?raw=true" alt="Kuala Lumpur" width="220"/></td>
-    <td align="center"><img src="readme/Dubai.png?raw=true" alt="Dubai" width="220"/></td>
-    <td align="center"><img src="readme/Doha.png?raw=true" alt="Doha" width="220"/></td>
+    <td align="center"><img src="readme/Malé_Maldives.png?raw=true" alt="Malé_Maldives" width="220"/></td>
+    <td align="center"><img src="readme/Mumbai_India.png?raw=true" alt="Mumbai_India" width="220"/></td>
+    <td align="center"><img src="readme/Muscat_Oman.png?raw=true" alt="Muscat_Oman" width="220"/></td>
+    <td align="center"><img src="readme/PhnomPenh_Cambodia.png?raw=true" alt="PhnomPenh_Cambodia" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Malé (Maldives)</b></td>
+    <td align="center"><b>Mumbai (India)</b></td>
+    <td align="center"><b>Muscat (Oman)</b></td>
+    <td align="center"><b>Phnom Penh (Cambodia)</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="readme/Pyongyang_NorthKorea.png?raw=true" alt="Pyongyang_NorthKorea" width="220"/></td>
+    <td align="center"><img src="readme/Riyadh_SaudiArabia.png?raw=true" alt="Riyadh_SaudiArabia" width="220"/></td>
+    <td align="center"><img src="readme/Seoul_SouthKorea.png?raw=true" alt="Seoul_SouthKorea" width="220"/></td>
+    <td align="center"><img src="readme/Tehran_Iran.png?raw=true" alt="Tehran_Iran" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Pyongyang (North Korea)</b></td>
+    <td align="center"><b>Riyadh (Saudi Arabia)</b></td>
+    <td align="center"><b>Seoul (South Korea)</b></td>
+    <td align="center"><b>Tehran (Iran)</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="readme/TelAviv_Israel.png?raw=true" alt="TelAviv_Israel" width="220"/></td>
+    <td align="center"><img src="readme/Tokyo_Japan.png?raw=true" alt="Tokyo_Japan" width="220"/></td>
+    <td align="center"><img src="readme/Yangon_Myanmar.png?raw=true" alt="Yangon_Myanmar" width="220"/></td>
     <td align="center"></td>
   </tr>
   <tr>
-    <td align="center"><b>Kuala Lumpur</b></td>
-    <td align="center"><b>Dubai</b></td>
-    <td align="center"><b>Doha</b></td>
+    <td align="center"><b>Tel Aviv (Israel)</b></td>
+    <td align="center"><b>Tokyo (Japan)</b></td>
+    <td align="center"><b>Yangon (Myanmar)</b></td>
     <td align="center"></td>
   </tr>
 </table>
+
+
 
 #### Europe
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/Amsterdam.png?raw=true" alt="Amsterdam" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Paris.png?raw=true" alt="Paris" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Oslo.png?raw=true" alt="Oslo" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Tirana.png?raw=true" alt="Tirana" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Amsterdam_The Netherlands.png?raw=true" alt="Amsterdam_The Netherlands" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Athens_Greece.png?raw=true" alt="Athens_Greece" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Barcelona_Spain.png?raw=true" alt="Barcelona_Spain" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Berlin_Germany.png?raw=true" alt="Berlin_Germany" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Amsterdam</b></td>
-    <td align="center"><b>Paris</b></td>
-    <td align="center"><b>Oslo</b></td>
-    <td align="center"><b>Tirana</b></td>
+    <td align="center"><b>Amsterdam (The Netherlands)</b></td>
+    <td align="center"><b>Athens (Greece)</b></td>
+    <td align="center"><b>Barcelona (Spain)</b></td>
+    <td align="center"><b>Berlin (Germany)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Brussels.png?raw=true" alt="Brussels" width="220"/></td>
-    <td align="center"><img src="readme/Sofia.png?raw=true" alt="Sofia" width="220"/></td>
-    <td align="center"><img src="readme/Berlin.png?raw=true" alt="Berlin" width="220"/></td>
-    <td align="center"><img src="readme/Moscow.png?raw=true" alt="Moscow" width="220"/></td>
+    <td align="center"><img src="readme/Brussels_Belgium.png?raw=true" alt="Brussels_Belgium" width="220"/></td>
+    <td align="center"><img src="readme/Copenhagen_Denmark.png?raw=true" alt="Copenhagen_Denmark" width="220"/></td>
+    <td align="center"><img src="readme/Dubrovnik_Croatia.png?raw=true" alt="Dubrovnik_Croatia" width="220"/></td>
+    <td align="center"><img src="readme/Helsinki_Finland.png?raw=true" alt="Helsinki_Finland" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Brussels</b></td>
-    <td align="center"><b>Sofia</b></td>
-    <td align="center"><b>Berlin</b></td>
-    <td align="center"><b>Moscow</b></td>
+    <td align="center"><b>Brussels (Belgium)</b></td>
+    <td align="center"><b>Copenhagen (Denmark)</b></td>
+    <td align="center"><b>Dubrovnik (Croatia)</b></td>
+    <td align="center"><b>Helsinki (Finland)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Kyiv.png?raw=true" alt="Kyiv" width="220"/></td>
-    <td align="center"><img src="readme/London.png?raw=true" alt="London" width="220"/></td>
-    <td align="center"><img src="readme/Rome.png?raw=true" alt="Rome" width="220"/></td>
-    <td align="center"><img src="readme/Barcelona.png?raw=true" alt="Barcelona" width="220"/></td>
+    <td align="center"><img src="readme/Kyiv_Ukraine.png?raw=true" alt="Kyiv_Ukraine" width="220"/></td>
+    <td align="center"><img src="readme/Lisbon_Portugal.png?raw=true" alt="Lisbon_Portugal" width="220"/></td>
+    <td align="center"><img src="readme/London_United Kingdom.png?raw=true" alt="London_United Kingdom" width="220"/></td>
+    <td align="center"><img src="readme/Moscow_Russia.png?raw=true" alt="Moscow_Russia" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Kyiv</b></td>
-    <td align="center"><b>London</b></td>
-    <td align="center"><b>Rome</b></td>
-    <td align="center"><b>Barcelona</b></td>
+    <td align="center"><b>Kyiv (Ukraine)</b></td>
+    <td align="center"><b>Lisbon (Portugal)</b></td>
+    <td align="center"><b>London (United Kingdom)</b></td>
+    <td align="center"><b>Moscow (Russia)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Zurich.png?raw=true" alt="Zurich" width="220"/></td>
-    <td align="center"><img src="readme/Stockholm.png?raw=true" alt="Stockholm" width="220"/></td>
-    <td align="center"><img src="readme/Copenhagen.png?raw=true" alt="Copenhagen" width="220"/></td>
-    <td align="center"><img src="readme/Helsinki.png?raw=true" alt="Helsinki" width="220"/></td>
+    <td align="center"><img src="readme/Oslo_Norway.png?raw=true" alt="Oslo_Norway" width="220"/></td>
+    <td align="center"><img src="readme/Paris_France.png?raw=true" alt="Paris_France" width="220"/></td>
+    <td align="center"><img src="readme/Rome_Italy.png?raw=true" alt="Rome_Italy" width="220"/></td>
+    <td align="center"><img src="readme/Sofia_Bulgaria.png?raw=true" alt="Sofia_Bulgaria" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Zurich</b></td>
-    <td align="center"><b>Stockholm</b></td>
-    <td align="center"><b>Copenhagen</b></td>
-    <td align="center"><b>Helsinki</b></td>
+    <td align="center"><b>Oslo (Norway)</b></td>
+    <td align="center"><b>Paris (France)</b></td>
+    <td align="center"><b>Rome (Italy)</b></td>
+    <td align="center"><b>Sofia (Bulgaria)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Warsaw.png?raw=true" alt="Warsaw" width="220"/></td>
-    <td align="center"><img src="readme/Lisbon.png?raw=true" alt="Lisbon" width="220"/></td>
-    <td align="center"><img src="readme/Athens.png?raw=true" alt="Athens" width="220"/></td>
-    <td align="center"><img src="readme/Dubrovnik.png?raw=true" alt="Dubrovnik" width="220"/></td>
+    <td align="center"><img src="readme/Stockholm_Sweden.png?raw=true" alt="Stockholm_Sweden" width="220"/></td>
+    <td align="center"><img src="readme/Tirana_Albania.png?raw=true" alt="Tirana_Albania" width="220"/></td>
+    <td align="center"><img src="readme/Vatican City_Vatican.png?raw=true" alt="Vatican City_Vatican" width="220"/></td>
+    <td align="center"><img src="readme/Warsaw_Poland.png?raw=true" alt="Warsaw_Poland" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Warsaw</b></td>
-    <td align="center"><b>Lisbon</b></td>
-    <td align="center"><b>Athens</b></td>
-    <td align="center"><b>Dubrovnik</b></td>
+    <td align="center"><b>Stockholm (Sweden)</b></td>
+    <td align="center"><b>Tirana (Albania)</b></td>
+    <td align="center"><b>Vatican City (Vatican)</b></td>
+    <td align="center"><b>Warsaw (Poland)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Vatican City.png?raw=true" alt="Vatican City" width="220"/></td>
+    <td align="center"><img src="readme/Zurich_Switzerland.png?raw=true" alt="Zurich_Switzerland" width="220"/></td>
     <td align="center"></td>
     <td align="center"></td>
     <td align="center"></td>
   </tr>
   <tr>
-    <td align="center"><b>Vatican City</b></td>
+    <td align="center"><b>Zurich (Switzerland)</b></td>
     <td align="center"></td>
     <td align="center"></td>
     <td align="center"></td>
   </tr>
 </table>
+
 
 #### North America
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/New York City.png?raw=true" alt="New York" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Toronto.png?raw=true" alt="Toronto" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Mexico City.png?raw=true" alt="Mexico City" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Havana.png?raw=true" alt="Havana" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Havana_Cuba.png?raw=true" alt="Havana_Cuba" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Mexico City_Mexico.png?raw=true" alt="Mexico City_Mexico" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City_USA.png?raw=true" alt="New York City_USA" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Panama City_Panama.png?raw=true" alt="Panama City_Panama" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>New York</b></td>
-    <td align="center"><b>Toronto</b></td>
-    <td align="center"><b>Mexico City</b></td>
-    <td align="center"><b>Havana</b></td>
+    <td align="center"><b>Havana (Cuba)</b></td>
+    <td align="center"><b>Mexico City (Mexico)</b></td>
+    <td align="center"><b>New York City (USA)</b></td>
+    <td align="center"><b>Panama City (Panama)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Panama City.png?raw=true" alt="Panama City" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Toronto_Canada.png?raw=true" alt="Toronto_Canada" width="220"/></td>
     <td align="center"></td>
     <td align="center"></td>
     <td align="center"></td>
   </tr>
   <tr>
-    <td align="center"><b>Panama City</b></td>
+    <td align="center"><b>Toronto (Canada)</b></td>
     <td align="center"></td>
     <td align="center"></td>
     <td align="center"></td>
   </tr>
 </table>
+
 
 #### Oceania
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/Auckland.png?raw=true" alt="Auckland" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Suva.png?raw=true" alt="Suva" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Funafuti.png?raw=true" alt="Funafuti" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Bali.png?raw=true" alt="Bali" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Auckland_NewZealand.png?raw=true" alt="Auckland_NewZealand" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Funafuti_Tuvalu.png?raw=true" alt="Funafuti_Tuvalu" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Jakarta_Indonesia.png?raw=true" alt="Jakarta_Indonesia" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Suva_Fiji.png?raw=true" alt="Suva_Fiji" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Auckland</b></td>
-    <td align="center"><b>Suva</b></td>
-    <td align="center"><b>Funafuti</b></td>
-    <td align="center"><b>Bali</b></td>
+    <td align="center"><b>Auckland (New Zealand)</b></td>
+    <td align="center"><b>Funafuti (Tuvalu)</b></td>
+    <td align="center"><b>Jakarta (Indonesia)</b></td>
+    <td align="center"><b>Suva (Fiji)</b></td>
   </tr>
 </table>
-
 
 #### South America
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/Rio de Janeiro.png?raw=true" alt="Rio de Janeiro" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Buenos Aires.png?raw=true" alt="Buenos Aires" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Lima.png?raw=true" alt="Lima" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Santiago.png?raw=true" alt="Santiago" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Asunción_Paraguay.png?raw=true" alt="Asunción_Paraguay" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Buenos Aires_Argentina.png?raw=true" alt="Buenos Aires_Argentina" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Lima_Peru.png?raw=true" alt="Lima_Peru" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Montevideo_Uruguay.png?raw=true" alt="Montevideo_Uruguay" width="220"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Rio de Janeiro</b></td>
-    <td align="center"><b>Buenos Aires</b></td>
-    <td align="center"><b>Lima</b></td>
-    <td align="center"><b>Santiago</b></td>
+    <td align="center"><b>Asunción (Paraguay)</b></td>
+    <td align="center"><b>Buenos Aires (Argentina)</b></td>
+    <td align="center"><b>Lima (Peru)</b></td>
+    <td align="center"><b>Montevideo (Uruguay)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Quito.png?raw=true" alt="Quito" width="220"/></td>
-    <td align="center"><img src="readme/Montevideo.png?raw=true" alt="Montevideo" width="220"/></td>
-    <td align="center"><img src="readme/Asuncion.png?raw=true" alt="Asunción" width="220"/></td>
+    <td align="center"><img src="readme/Quito_Ecuador.png?raw=true" alt="Quito_Ecuador" width="220"/></td>
+    <td align="center"><img src="readme/Rio de Janeiro_Brazil.png?raw=true" alt="Rio de Janeiro_Brazil" width="220"/></td>
+    <td align="center"><img src="readme/Santiago_Chile.png?raw=true" alt="Santiago_Chile" width="220"/></td>
     <td align="center"></td>
   </tr>
   <tr>
-    <td align="center"><b>Quito</b></td>
-    <td align="center"><b>Montevideo</b></td>
-    <td align="center"><b>Asunción</b></td>
+    <td align="center"><b>Quito (Ecuador)</b></td>
+    <td align="center"><b>Rio de Janeiro (Brazil)</b></td>
+    <td align="center"><b>Santiago (Chile)</b></td>
     <td align="center"></td>
   </tr>
 </table>
+
 
 
 

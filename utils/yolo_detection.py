@@ -101,7 +101,7 @@ class YOLO_detection:
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
         if total_frames == 0:
-            print("Warning: Could not determine total frames. Progress bar may not work correctly.")
+            logger.warning("Warning: Could not determine total frames. Progress bar may not work correctly.")
             total_frames = None  # Prevent tqdm from setting a fixed length
 
         # Setup progress bar

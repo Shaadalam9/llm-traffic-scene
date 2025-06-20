@@ -3,6 +3,7 @@ from custom_logger import CustomLogger
 from logmod import logs
 import warnings
 import os
+import pandas as pd
 import shutil
 import plotly as py
 import plotly.express as px
@@ -150,7 +151,6 @@ class Plots():
 
         elif order_by == "continent_average":
             # Group cities by continent
-            print(final_dict)
             continent_cities = defaultdict(list)
             for city in final_dict:
                 if any(final_dict[city].get(k, 0) > 0 for k in keys_of_interest):
@@ -463,7 +463,7 @@ class Plots():
                                 save_eps=True,
                                 save_final=True)
 
-    def plot_choropleth(self, df, column_name=None, title_text=None, filename=None):
+    def plot_choropleth(self, data_dict, value_key=None, title_text=None, filename=None):
         """
         Reads a CSV file with country sound data and plots a choropleth map.
 
@@ -471,14 +471,17 @@ class Plots():
             csv_path (str): Path to the CSV file containing 'Country', 'iso', and 'sound' columns.
         """
         try:
-            # Load and clean data
-            df_clean = df[['Country', 'ISO', column_name]].dropna()
+            # Convert dict to DataFrame
+            df = pd.DataFrame.from_dict(data_dict, orient='index').reset_index()
+            df = df.rename(columns={'index': 'City', 'country': 'Country', 'iso': 'ISO'})
 
-            # Create choropleth map
+            # Only keep rows with valid ISO and value
+            df_clean = df[['City', 'Country', 'ISO', value_key]].dropna(subset=['ISO', value_key])
+
             fig = px.choropleth(
                 df_clean,
                 locations="ISO",
-                color="sound",
+                color=value_key,
                 hover_name="Country",
                 color_continuous_scale="Inferno_r",
                 projection="natural earth",
@@ -488,10 +491,9 @@ class Plots():
             fig.update_layout(
                 geo=dict(showframe=False, showcoastlines=True),
                 margin={"r": 0, "t": 50, "l": 0, "b": 0},
-                coloraxis_colorbar=dict(title="")
+                coloraxis_colorbar=dict(title=value_key)
             )
 
-            fig.show()
             self.save_plotly_figure(fig=fig,
                                     filename=filename,
                                     scale=SCALE,
