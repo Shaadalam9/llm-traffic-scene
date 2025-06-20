@@ -94,10 +94,10 @@ Sound from different countries (measured in dB).
     <td align="center"><b>Banjul (Gambia)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Bangui_CAR.png?raw=true" alt="Bangui_CAR" width="220"/></td>
+    <td align="center"><img src="readme/Bangui_Central African Republic.png?raw=true" alt="Bangui_Central African RepublicR" width="220"/></td>
     <td align="center"><img src="readme/Cairo_Egypt.png?raw=true" alt="Cairo_Egypt" width="220"/></td>
     <td align="center"><img src="readme/Kampala_Uganda.png?raw=true" alt="Kampala_Uganda" width="220"/></td>
-    <td align="center"><img src="readme/Kinshasa_DRC.png?raw=true" alt="Kinshasa_DRC" width="220"/></td>
+    <td align="center"><img src="readme/Kinshasa_Democratic Republic of the Congo.png?raw=true" alt="Kinshasa_Democratic Republic of the Congo" width="220"/></td>
   </tr>
   <tr>
     <td align="center"><b>Bangui (Central African Republic)</b></td>
@@ -137,7 +137,7 @@ Sound from different countries (measured in dB).
   </tr>
   <tr>
     <td align="center"><img src="readme/Bangkok_Thailand.png?raw=true" alt="Bangkok_Thailand" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/Colombo_SriLanka.png?raw=true" alt="Colombo_SriLanka" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Colombo_Sri Lanka.png?raw=true" alt="Colombo_Sri Lanka" width="220"/></td>
     <td align="center"><img src="readme/Damascus_Syria.png?raw=true" alt="Damascus_Syria" width="220"/></td>
     <td align="center"><img src="readme/Dhaka_Bangladesh.png?raw=true" alt="Dhaka_Bangladesh" width="220"/></td>
   </tr>
@@ -149,13 +149,13 @@ Sound from different countries (measured in dB).
   </tr>
   <tr>
     <td align="center"><img src="readme/Doha_Qatar.png?raw=true" alt="Doha_Qatar" width="220"/></td>
-    <td align="center"><img src="readme/Dubai_UAE.png?raw=true" alt="Dubai_UAE" width="220"/></td>
+    <td align="center"><img src="readme/Dubai_United Arab Emirates.png?raw=true" alt="Dubai_United Arab Emirates" width="220"/></td>
     <td align="center"><img src="readme/Istanbul_Turkey.png?raw=true" alt="Istanbul_Turkey" width="220"/></td>
     <td align="center"><img src="readme/Jakarta_Indonesia.png?raw=true" alt="Jakarta_Indonesia" width="220"/></td>
   </tr>
   <tr>
     <td align="center"><b>Doha (Qatar)</b></td>
-    <td align="center"><b>Dubai (UAE)</b></td>
+    <td align="center"><b>Dubai (United Arab Emirates)</b></td>
     <td align="center"><b>Istanbul (Turkey)</b></td>
     <td align="center"><b>Jakarta (Indonesia)</b></td>
   </tr>
@@ -163,7 +163,7 @@ Sound from different countries (measured in dB).
     <td align="center"><img src="readme/Kabul_Afghanistan.png?raw=true" alt="Kabul_Afghanistan" width="220"/></td>
     <td align="center"><img src="readme/Karachi_Pakistan.png?raw=true" alt="Karachi_Pakistan" width="220"/></td>
     <td align="center"><img src="readme/Kathmandu_Nepal.png?raw=true" alt="Kathmandu_Nepal" width="220"/></td>
-    <td align="center"><img src="readme/KualaLumpur_Malaysia.png?raw=true" alt="KualaLumpur_Malaysia" width="220"/></td>
+    <td align="center"><img src="readme/Kuala Lumpur_Malaysia.png?raw=true" alt="Kuala Lumpur_Malaysia" width="220"/></td>
   </tr>
   <tr>
     <td align="center"><b>Kabul (Afghanistan)</b></td>
@@ -175,7 +175,7 @@ Sound from different countries (measured in dB).
     <td align="center"><img src="readme/Malé_Maldives.png?raw=true" alt="Malé_Maldives" width="220"/></td>
     <td align="center"><img src="readme/Mumbai_India.png?raw=true" alt="Mumbai_India" width="220"/></td>
     <td align="center"><img src="readme/Muscat_Oman.png?raw=true" alt="Muscat_Oman" width="220"/></td>
-    <td align="center"><img src="readme/PhnomPenh_Cambodia.png?raw=true" alt="PhnomPenh_Cambodia" width="220"/></td>
+    <td align="center"><img src="readme/Phnom Penh_Cambodia.png?raw=true" alt="Phnom Penh_Cambodia" width="220"/></td>
   </tr>
   <tr>
     <td align="center"><b>Malé (Maldives)</b></td>
@@ -184,9 +184,9 @@ Sound from different countries (measured in dB).
     <td align="center"><b>Phnom Penh (Cambodia)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/Pyongyang_NorthKorea.png?raw=true" alt="Pyongyang_NorthKorea" width="220"/></td>
-    <td align="center"><img src="readme/Riyadh_SaudiArabia.png?raw=true" alt="Riyadh_SaudiArabia" width="220"/></td>
-    <td align="center"><img src="readme/Seoul_SouthKorea.png?raw=true" alt="Seoul_SouthKorea" width="220"/></td>
+    <td align="center"><img src="readme/Pyongyang_North Korea.png?raw=true" alt="Pyongyang_North Korea" width="220"/></td>
+    <td align="center"><img src="readme/Riyadh_Saudi Arabia.png?raw=true" alt="Riyadh_Saudi Arabia" width="220"/></td>
+    <td align="center"><img src="readme/Seoul_South Korea.png?raw=true" alt="Seoul_South Korea" width="220"/></td>
     <td align="center"><img src="readme/Tehran_Iran.png?raw=true" alt="Tehran_Iran" width="220"/></td>
   </tr>
   <tr>
@@ -196,7 +196,7 @@ Sound from different countries (measured in dB).
     <td align="center"><b>Tehran (Iran)</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="readme/TelAviv_Israel.png?raw=true" alt="TelAviv_Israel" width="220"/></td>
+    <td align="center"><img src="readme/Tel Aviv_Israel.png?raw=true" alt="Tel Aviv_Israel" width="220"/></td>
     <td align="center"><img src="readme/Tokyo_Japan.png?raw=true" alt="Tokyo_Japan" width="220"/></td>
     <td align="center"><img src="readme/Yangon_Myanmar.png?raw=true" alt="Yangon_Myanmar" width="220"/></td>
     <td align="center"></td>
@@ -295,13 +295,13 @@ Sound from different countries (measured in dB).
   <tr>
     <td align="center" width="25%"><img src="readme/Havana_Cuba.png?raw=true" alt="Havana_Cuba" width="220"/></td>
     <td align="center" width="25%"><img src="readme/Mexico City_Mexico.png?raw=true" alt="Mexico City_Mexico" width="220"/></td>
-    <td align="center" width="25%"><img src="readme/New York City_USA.png?raw=true" alt="New York City_USA" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City_United States.png?raw=true" alt="New York City_United States" width="220"/></td>
     <td align="center" width="25%"><img src="readme/Panama City_Panama.png?raw=true" alt="Panama City_Panama" width="220"/></td>
   </tr>
   <tr>
     <td align="center"><b>Havana (Cuba)</b></td>
     <td align="center"><b>Mexico City (Mexico)</b></td>
-    <td align="center"><b>New York City (USA)</b></td>
+    <td align="center"><b>New York City (United States)</b></td>
     <td align="center"><b>Panama City (Panama)</b></td>
   </tr>
   <tr>
@@ -323,7 +323,7 @@ Sound from different countries (measured in dB).
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%"><img src="readme/Auckland_NewZealand.png?raw=true" alt="Auckland_NewZealand" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Auckland_New Zealand.png?raw=true" alt="Auckland_New Zealand" width="220"/></td>
     <td align="center" width="25%"><img src="readme/Funafuti_Tuvalu.png?raw=true" alt="Funafuti_Tuvalu" width="220"/></td>
     <td align="center" width="25%"><img src="readme/Jakarta_Indonesia.png?raw=true" alt="Jakarta_Indonesia" width="220"/></td>
     <td align="center" width="25%"><img src="readme/Suva_Fiji.png?raw=true" alt="Suva_Fiji" width="220"/></td>
