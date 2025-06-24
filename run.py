@@ -155,15 +155,11 @@ nan_sound_cities = [city for city in result if math.isnan(result[city]['sound'])
 logger.info("Cities where the sound is not present: {nan_sound_cities}.".format(nan_sound_cities=nan_sound_cities))
 
 # --- Update mapping file (CSV) with the new object counts ---
+print(result)
 for city_country, values in result.items():
 
-    city_norm = video_info.normalise_str(city)
-
-    # Normalise all cities in the mapping dataframe (once, outside the loop is better for efficiency!)
-    df_mapping['City_norm'] = df_mapping['City'].apply(video_info.normalise_str)
-
     # Find the row(s) in the mapping CSV where 'City' matches this city/video name
-    idx = df_mapping[df_mapping['City_norm'] == city_norm].index
+    idx = df_mapping[df_mapping['city_norm'] == city_norm].index
 
     if len(idx) == 0:
         logger.error(f"Warning: {city} not found in CSV.")   # Alert if the city name doesn't match any row
