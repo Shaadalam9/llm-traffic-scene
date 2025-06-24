@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-.DS_Store
+**/.DS_Store
 .Python
 data/
 data_0.7/
@@ -34,6 +34,10 @@ MANIFEST
 
 # Model files
 yolo11x.pt
+
+# Sublime Text project files
+*.sublime-project
+*.sublime-workspace
 
 # Instance specific files
 config
