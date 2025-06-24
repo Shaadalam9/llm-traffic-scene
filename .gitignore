@@ -34,7 +34,6 @@ MANIFEST
 
 # Model files
 yolo11x.pt
-mapping.csv
 
 # Instance specific files
 config
