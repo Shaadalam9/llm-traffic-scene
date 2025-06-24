@@ -38,7 +38,7 @@ Ensure you have the required datasets in the data/ directory, including the mapp
 **Step 6:**
 Run the code:
 ```command line
-python3 analysis.py
+python3 run.py
 ```
 
 ### Configuration of project

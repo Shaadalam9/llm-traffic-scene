@@ -1,21 +1,21 @@
-City,Country,ISO,Continent,Video processing time (in s),Persons,Cars,Cycles,Motorbikes,Buses,Trucks,Traffic lights,Stop Signs,sound
-New York City1,United States,USA,North America,78.36
-New York City2,United States,USA,North America,78.07
-New York City3,United States,USA,North America,98.59
-New York City4,United States,USA,North America,86.15
-New York City5,United States,USA,North America,80.02
-New York City6,United States,USA,North America,92.62
-New York City7,United States,USA,North America,92.24
-New York City8,United States,USA,North America,74.69
-New York City9,United States,USA,North America,93.72
-New York City10,United States,USA,North America,88.83
-Kampala1,Uganda,UGA,Africa,84.59
-Kampala2,Uganda,UGA,Africa,81.53
-Kampala3,Uganda,UGA,Africa,82.69
-Kampala4,Uganda,UGA,Africa,87.2
-Kampala5,Uganda,UGA,Africa,90.98
-Kampala6,Uganda,UGA,Africa,91.65
-Kampala7,Uganda,UGA,Africa,89.03
-Kampala8,Uganda,UGA,Africa,90.37
-Kampala9,Uganda,UGA,Africa,76.36
-Kampala10,Uganda,UGA,Africa,91.42
+City,Country,ISO,Continent,Video processing time (in s),Persons,Cars,Cycles,Motorbikes,Buses,Trucks,Traffic lights,Stop Signs,sound,city_norm
+New York City 1,United States,USA,North America,78.36,14.0,23.0,,0.0,0.0,4.0,2.0,,-13.615688981025812,new york city 1
+New York City 2,United States,USA,North America,78.07,27.0,11.0,,0.0,1.0,1.0,6.0,,-8.322085654745905,new york city 2
+New York City 3,United States,USA,North America,98.59,30.0,15.0,,0.0,1.0,1.0,0.0,,-8.91837610327261,new york city 3
+New York City 4,United States,USA,North America,86.15,15.0,14.0,,0.0,2.0,0.0,3.0,,-25.93532627115314,new york city 4
+New York City 5,United States,USA,North America,80.02,12.0,15.0,,0.0,0.0,1.0,4.0,,-9.71964720550072,new york city 5
+New York City 6,United States,USA,North America,92.62,13.0,18.0,,0.0,0.0,1.0,0.0,,-22.344228193706805,new york city 6
+New York City 7,United States,USA,North America,92.24,7.0,21.0,,0.0,1.0,2.0,2.0,,-8.539688656010592,new york city 7
+New York City 8,United States,USA,North America,74.69,12.0,18.0,,0.0,0.0,2.0,5.0,,-16.391704315296295,new york city 8
+New York City 9,United States,USA,North America,93.72,21.0,13.0,,0.0,0.0,1.0,5.0,,-11.500303979092624,new york city 9
+New York City 10,United States,USA,North America,88.83,25.0,19.0,,0.0,1.0,0.0,0.0,,-9.458729068815904,new york city 10
+Kampala 1,Uganda,UGA,Africa,84.59,39.0,3.0,,7.0,0.0,0.0,0.0,,-11.079650929842142,kampala 1
+Kampala 2,Uganda,UGA,Africa,81.53,29.0,8.0,,9.0,0.0,0.0,0.0,,-11.593108696711855,kampala 2
+Kampala 3,Uganda,UGA,Africa,82.69,7.0,8.0,,3.0,1.0,0.0,0.0,,-14.532436566391311,kampala 3
+Kampala 4,Uganda,UGA,Africa,87.2,34.0,5.0,,4.0,1.0,1.0,0.0,,-13.03437397259036,kampala 4
+Kampala 5,Uganda,UGA,Africa,90.98,31.0,8.0,,6.0,0.0,0.0,0.0,,-12.865470284148817,kampala 5
+Kampala 6,Uganda,UGA,Africa,91.65,22.0,6.0,,4.0,0.0,0.0,0.0,,-9.218242565272014,kampala 6
+Kampala 7,Uganda,UGA,Africa,89.03,20.0,3.0,,6.0,1.0,0.0,0.0,,-19.724007033360206,kampala 7
+Kampala 8,Uganda,UGA,Africa,90.37,40.0,9.0,,5.0,2.0,1.0,0.0,,-8.578176120177645,kampala 8
+Kampala 9,Uganda,UGA,Africa,76.36,23.0,14.0,,7.0,0.0,0.0,0.0,,-16.974480352317446,kampala 9
+Kampala 10,Uganda,UGA,Africa,91.42,30.0,9.0,,5.0,0.0,1.0,0.0,,-15.358206043696807,kampala 10
