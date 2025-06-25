@@ -24,6 +24,11 @@ logger = CustomLogger(__name__)  # use custom logger
 bar_colours = ["#636EFA", "#EF553B", "#00CC96", "#AB63FA",
                "#FFA15A", "#19D3F3", "#FF6692"]
 
+keys_of_interest = ["Persons", "Cars", "Bicycles", "Motorbikes",
+                    "Buses", "Trucks", "Traffic lights"]
+
+key_to_colour = {k: bar_colours[i] for i, k in enumerate(keys_of_interest)}
+
 # Consts
 BASE_HEIGHT_PER_ROW = 30  # Adjust as needed
 FLAG_SIZE = 12
@@ -126,9 +131,6 @@ class Plots():
         if message:
             logger.info(message)
 
-        keys_of_interest = ["Persons", "Cars", "Cycles", "Motorbikes",
-                            "Buses", "Trucks", "Traffic lights"]
-
         if order_by == "alphabetical":
             cities_ordered = sorted(
                 [
@@ -184,9 +186,6 @@ class Plots():
             horizontal_spacing=0.01,  # Reduce horizontal spacing between columns
             row_heights=[1.0] * (num_cities_per_col),
         )
-
-        # Create key-to-colour mapping (add near start of stack_plot):
-        key_to_colour = {k: bar_colours[i] for i, k in enumerate(keys_of_interest)}
 
         # Plot left column (first half of cities)
         for i, city in enumerate(cities_ordered[:num_cities_per_col]):
@@ -503,3 +502,110 @@ class Plots():
 
         except Exception as e:
             logger.error(f"Error generating choropleth map: {e}")
+
+    def plot_city_stacked_bars(self, df, title_text, filename, font_size_captions, legend_x,
+                               legend_y, left_margin, right_margin, stack_cols=None):
+        """
+        Plots a grouped stacked bar chart, with cities sorted by the sum of stack_cols (increasing).
+        """
+
+        if stack_cols is None:
+            stack_cols = keys_of_interest
+
+        # Extract city group (name without number)
+        df['CityGroup'] = df['City'].str.replace(r'\d+$', '', regex=True).str.strip()
+
+        # Compute row-wise sum for sorting within each city
+        df['row_sum'] = df[stack_cols].sum(axis=1)
+
+        # Prepare for plotting
+        # Group by city and sort within group
+        sorted_dfs = []
+        city_groups = df['CityGroup'].unique()
+        for city in city_groups:
+            city_df = df[df['CityGroup'] == city].sort_values('row_sum')
+            sorted_dfs.append(city_df)
+        df_sorted = pd.concat(sorted_dfs, ignore_index=True)
+
+        # Compute x positions and city label ticks
+        x = []
+        tickvals = []
+        ticktext = []
+        idx = 0
+        gap = 1  # gap between clusters
+        for city in city_groups:
+            n = (df['CityGroup'] == city).sum()
+            for _ in range(n):
+                x.append(idx)
+                idx += 1
+
+            # Center label under the cluster
+            cluster_center = idx - n/2 - 0.5
+            tickvals.append(cluster_center)
+            ticktext.append(city)
+            idx += gap
+
+        fig = go.Figure()
+        stack_cols_sorted = keys_of_interest
+        for col in stack_cols_sorted:
+            fig.add_trace(go.Bar(
+                x=x,
+                y=df_sorted[col],
+                name=col,
+                width=0.9,
+                marker_color=key_to_colour[col],
+                text=df_sorted[col],
+                textposition='inside',
+                textfont=dict(color='white'),
+                insidetextanchor='middle',
+            ))
+
+        # Add the sum labels using the exact same x
+        fig.add_trace(go.Scatter(
+            x=x,
+            y=df_sorted['row_sum'],
+            mode='text',
+            text=df_sorted['row_sum'].astype(int),
+            textposition='top center',
+            textfont=dict(size=font_size_captions, color='black'),
+            showlegend=False,
+            hoverinfo='skip'
+        ))
+
+        y_max = df_sorted['row_sum'].max()
+
+        fig.update_layout(
+            barmode='stack',
+            title=title_text,
+            xaxis=dict(
+                title='',
+                title_font=dict(size=font_size_captions),    # Size of the x-axis label
+                tickfont=dict(size=font_size_captions),      # Size of the x-axis ticks
+                tickmode='array',
+                tickvals=tickvals,
+                ticktext=ticktext,
+                showgrid=False,
+                zeroline=False
+            ),
+            yaxis=dict(
+                title='Count',
+                title_font=dict(size=font_size_captions),    # Size of the y-axis label
+                tickfont=dict(size=font_size_captions),      # Size of the y-axis ticks
+                range=[0, y_max * 1.08],
+                ),
+            legend=dict(
+                x=legend_x,   # X position (fraction of plot width)
+                y=legend_y,   # Y position (fraction of plot height)
+                xanchor='left',  # How to anchor the x position ('left', 'center', 'right')
+                yanchor='top',   # How to anchor the y position ('top', 'middle', 'bottom')
+                font=dict(size=18),
+                title='',  # Optional, for clarity
+            ),
+            template=common.get_configs("plotly_template"),
+            bargap=0.2
+        )
+        self.save_plotly_figure(fig=fig,
+                                filename=filename,
+                                scale=SCALE,
+                                save_eps=True,
+                                save_final=True)

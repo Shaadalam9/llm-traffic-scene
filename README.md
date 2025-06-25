@@ -38,7 +38,7 @@ Ensure you have the required datasets in the data/ directory, including the mapp
 **Step 6:**
 Run the code:
 ```command line
-python3 analysis.py
+python3 run.py
 ```
 
 ### Configuration of project
@@ -75,6 +75,10 @@ Distribution of objects detected in the videos, first grouped by continent and t
 ### Sound from the videos of different cities
 [![Sound from the videos](figures/sound.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/sound.html)
 Sound from different countries (measured in dB).
+
+### Sound from the videos of different cities
+[![Sound from the videos](figures/bar_plot.png?raw=true)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/llm-traffic-scene/blob/main/figures/bar_plot.html)
+Distribution of object detected in 10 different videos of New York City (United States) and Kampala (Uganda).
 
 ### First frame from Veo 3 generated videos
 
@@ -362,6 +366,51 @@ Sound from different countries (measured in dB).
     <td align="center"><b>Rio de Janeiro (Brazil)</b></td>
     <td align="center"><b>Santiago (Chile)</b></td>
     <td align="center"></td>
+  </tr>
+</table>
+
+
+
+#### Frames from 10 videos of New York City (United States)
+
+<table width="100%">
+  <tr>
+    <td align="center" width="25%"><img src="readme/New York City1_United States.png?raw=true" alt="New York City1_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City2_United States.png?raw=true" alt="New York City2_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City3_United States.png?raw=true" alt="New York City3_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City4_United States.png?raw=true" alt="New York City4_United States" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img src="readme/New York City5_United States.png?raw=true" alt="New York City5_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City6_United States.png?raw=true" alt="New York City6_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City7_United States.png?raw=true" alt="New York City7_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City8_United States.png?raw=true" alt="New York City8_United States" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img src="readme/New York City9_United States.png?raw=true" alt="New York City9_United States" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/New York City10_United States.png?raw=true" alt="New York City10_United States" width="220"/></td>
+  </tr>
+</table>
+
+
+#### Frames from 10 videos of Kampala (Uganda)
+
+<table width="100%">
+  <tr>
+    <td align="center" width="25%"><img src="readme/Kampala1_Uganda.png?raw=true" alt="Kampala1_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala2_Uganda.png?raw=true" alt="Kampala2_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala3_Uganda.png?raw=true" alt="Kampala3_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala4_Uganda.png?raw=true" alt="Kampala4_Uganda" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img src="readme/Kampala5_Uganda.png?raw=true" alt="Kampala5_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala6_Uganda.png?raw=true" alt="Kampala6_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala7_Uganda.png?raw=true" alt="Kampala7_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala8_Uganda.png?raw=true" alt="Kampala8_Uganda" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img src="readme/Kampala9_Uganda.png?raw=true" alt="Kampala9_Uganda" width="220"/></td>
+    <td align="center" width="25%"><img src="readme/Kampala10_Uganda.png?raw=true" alt="Kampala10_Uganda" width="220"/></td>
   </tr>
 </table>
 

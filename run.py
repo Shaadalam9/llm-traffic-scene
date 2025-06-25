@@ -176,52 +176,63 @@ for city_country, values in result.items():
 # Ensure output directory exists and write the DataFrame to a new CSV file
 output_dir = "_output"
 os.makedirs(output_dir, exist_ok=True)
-df_mapping.to_csv(os.path.join(output_dir, "mapping_updated.csv"), index=False)
+df_mapping.to_csv(os.path.join(output_dir, f"{os.path.splitext(mapping_file)[0]}_updated.csv"), index=False)
 
-plots.plot_choropleth(result,
-                      value_key='sound',
-                      title_text="",
-                      filename="sound"
-                      )
+if common.get_configs("mapping") == "mapping.csv":
+    plots.plot_choropleth(result,
+                          value_key='sound',
+                          title_text="",
+                          filename="sound"
+                          )
 
-plots.stack_plot(result,
-                 df_mapping,
-                 order_by="alphabetical",
-                 title_text="",
-                 filename="stack_alphabetical",
-                 font_size_captions=30,
-                 legend_x=0.87,
-                 legend_y=0.21,
-                 legend_spacing=0.03,
-                 left_margin=0,
-                 right_margin=0
-                 )
+    plots.stack_plot(result,
+                     df_mapping,
+                     order_by="alphabetical",
+                     title_text="",
+                     filename="stack_alphabetical",
+                     font_size_captions=30,
+                     legend_x=0.87,
+                     legend_y=0.21,
+                     legend_spacing=0.03,
+                     left_margin=0,
+                     right_margin=0
+                     )
 
-plots.stack_plot(result,
-                 df_mapping,
-                 order_by="average",
-                 title_text="",
-                 filename="stack_average",
-                 font_size_captions=30,
-                 legend_x=0.87,
-                 legend_y=0.21,
-                 legend_spacing=0.03,
-                 left_margin=0,
-                 right_margin=0
-                 )
+    plots.stack_plot(result,
+                     df_mapping,
+                     order_by="average",
+                     title_text="",
+                     filename="stack_average",
+                     font_size_captions=30,
+                     legend_x=0.87,
+                     legend_y=0.21,
+                     legend_spacing=0.03,
+                     left_margin=0,
+                     right_margin=0
+                     )
 
-plots.stack_plot(result,
-                 df_mapping,
-                 order_by="continent_average",
-                 title_text="",
-                 filename="continent_average",
-                 font_size_captions=30,
-                 legend_x=0.87,
-                 legend_y=0.21,
-                 legend_spacing=0.03,
-                 left_margin=0,
-                 right_margin=0
-                 )
+    plots.stack_plot(result,
+                     df_mapping,
+                     order_by="continent_average",
+                     title_text="",
+                     filename="continent_average",
+                     font_size_captions=30,
+                     legend_x=0.87,
+                     legend_y=0.21,
+                     legend_spacing=0.03,
+                     left_margin=0,
+                     right_margin=0
+                     )
+
+if common.get_configs("mapping") == "mapping-10.csv":
+    plots.plot_city_stacked_bars(df_mapping,
+                                 title_text="",
+                                 filename="bar_plot",
+                                 font_size_captions=20,
+                                 legend_x=0.02,
+                                 legend_y=0.97,
+                                 left_margin=0,
+                                 right_margin=0)
 
 # Run the script for frame generation
 frame_extractor.process_all_videos()

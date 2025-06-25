@@ -1,21 +1,21 @@
-City,Country,ISO,Continent,Video processing time (in s),Persons,Cars,Cycles,Motorbikes,Buses,Trucks,Traffic lights,Stop Signs,sound
-New York City1,United States,USA,North America,78.36
-New York City2,United States,USA,North America,78.07
-New York City3,United States,USA,North America,98.59
-New York City4,United States,USA,North America,86.15
-New York City5,United States,USA,North America,80.02
-New York City6,United States,USA,North America,92.62
-New York City7,United States,USA,North America,92.24
-New York City8,United States,USA,North America,74.69
-New York City9,United States,USA,North America,93.72
-New York City10,United States,USA,North America,88.83
-Kampala1,Uganda,UGA,Africa,84.59
-Kampala2,Uganda,UGA,Africa,81.53
-Kampala3,Uganda,UGA,Africa,82.69
-Kampala4,Uganda,UGA,Africa,87.2
-Kampala5,Uganda,UGA,Africa,90.98
-Kampala6,Uganda,UGA,Africa,91.65
-Kampala7,Uganda,UGA,Africa,89.03
-Kampala8,Uganda,UGA,Africa,90.37
-Kampala9,Uganda,UGA,Africa,76.36
-Kampala10,Uganda,UGA,Africa,91.42
+City,Country,ISO,Continent,Video processing time (in s),Persons,Cars,Bicycles,Motorbikes,Buses,Trucks,Traffic lights,sound
+New York City1,United States,USA,North America,78.36,,,,,,,,
+New York City2,United States,USA,North America,78.07,,,,,,,,
+New York City3,United States,USA,North America,98.59,,,,,,,,
+New York City4,United States,USA,North America,86.15,,,,,,,,
+New York City5,United States,USA,North America,80.02,,,,,,,,
+New York City6,United States,USA,North America,92.62,,,,,,,,
+New York City7,United States,USA,North America,92.24,,,,,,,,
+New York City8,United States,USA,North America,74.69,,,,,,,,
+New York City9,United States,USA,North America,93.72,,,,,,,,
+New York City10,United States,USA,North America,88.83,,,,,,,,
+Kampala1,Uganda,UGA,Africa,84.59,,,,,,,,
+Kampala2,Uganda,UGA,Africa,81.53,,,,,,,,
+Kampala3,Uganda,UGA,Africa,82.69,,,,,,,,
+Kampala4,Uganda,UGA,Africa,87.2,,,,,,,,
+Kampala5,Uganda,UGA,Africa,90.98,,,,,,,,
+Kampala6,Uganda,UGA,Africa,91.65,,,,,,,,
+Kampala7,Uganda,UGA,Africa,89.03,,,,,,,,
+Kampala8,Uganda,UGA,Africa,90.37,,,,,,,,
+Kampala9,Uganda,UGA,Africa,76.36,,,,,,,,
+Kampala10,Uganda,UGA,Africa,91.42,,,,,,,,
