@@ -280,7 +280,7 @@ class Plots():
             sum(final_dict[city].get(k, 0) for k in keys_of_interest)
             for city in cities_ordered
         ) if cities_ordered else 0
-        max_value += 15
+        max_value += 18
 
         # Identify the last row for each column where the last city is plotted
         last_row_left_column = num_cities_per_col * 2  # The last row in the left column
@@ -372,37 +372,37 @@ class Plots():
         )
 
         # Define gridline generation parameters
-        start, step, count = 10, 10, 100
+        # start, step, count = 10, 10, 100
 
         # Generate gridline positions
-        x_grid_values = [start + i * step for i in range(count)]
+        # x_grid_values = [start + i * step for i in range(count)]
 
-        for x in x_grid_values:
-            fig.add_shape(
-                type="line",
-                x0=x,
-                y0=0,
-                x1=x,
-                y1=1,  # Set the position of the gridlines
-                xref='x',
-                yref='paper',  # Ensure gridlines span the whole chart (yref='paper' spans full height)
-                line=dict(color="darkgray", width=1),  # Customize the appearance of the gridlines
-                layer="above"  # Draw the gridlines above the bars
-            )
+        # for x in x_grid_values:
+        #     fig.add_shape(
+        #         type="line",
+        #         x0=x,
+        #         y0=0,
+        #         x1=x,
+        #         y1=1,  # Set the position of the gridlines
+        #         xref='x',
+        #         yref='paper',  # Ensure gridlines span the whole chart (yref='paper' spans full height)
+        #         line=dict(color="darkgray", width=1),  # Customize the appearance of the gridlines
+        #         layer="above"  # Draw the gridlines above the bars
+        #     )
 
-        # Manually add gridlines using `shapes` for the right column (x-axis 'x2')
-        for x in x_grid_values:
-            fig.add_shape(
-                type="line",
-                x0=x,
-                y0=0,
-                x1=x,
-                y1=1,  # Set the position of the gridlines
-                xref='x2',
-                yref='paper',  # Apply to right column (x-axis 'x2')
-                line=dict(color="darkgray", width=1),  # Customize the appearance of the gridlines
-                layer="above"  # Draw the gridlines above the bars
-            )
+        # # Manually add gridlines using `shapes` for the right column (x-axis 'x2')
+        # for x in x_grid_values:
+        #     fig.add_shape(
+        #         type="line",
+        #         x0=x,
+        #         y0=0,
+        #         x1=x,
+        #         y1=1,  # Set the position of the gridlines
+        #         xref='x2',
+        #         yref='paper',  # Apply to right column (x-axis 'x2')
+        #         line=dict(color="darkgray", width=1),  # Customize the appearance of the gridlines
+        #         layer="above"  # Draw the gridlines above the bars
+        #     )
 
         legend_items = [
             {"name": key.capitalize(), "color": bar_colours[i]}
@@ -454,7 +454,7 @@ class Plots():
         fig.update_layout(font=dict(family=common.get_configs('font_family')))
 
         # Final adjustments and display
-        fig.update_layout(margin=dict(l=80, r=80, t=x_axis_title_height, b=10))
+        fig.update_layout(margin=dict(l=left_margin, r=right_margin, t=x_axis_title_height, b=10))
         self.save_plotly_figure(fig=fig,
                                 filename=filename,
                                 width=1800,
@@ -520,12 +520,20 @@ class Plots():
 
         # Prepare for plotting
         # Group by city and sort within group
-        sorted_dfs = []
-        city_groups = df['CityGroup'].unique()
-        for city in city_groups:
-            city_df = df[df['CityGroup'] == city].sort_values('row_sum')
-            sorted_dfs.append(city_df)
-        df_sorted = pd.concat(sorted_dfs, ignore_index=True)
+        # sorted_dfs = []
+        # city_groups = df['CityGroup'].unique()
+        # for city in city_groups:
+        #     city_df = df[df['CityGroup'] == city].sort_values('row_sum')
+        #     sorted_dfs.append(city_df)
+        # df_sorted = pd.concat(sorted_dfs, ignore_index=True)
+
+        # Extract number at the end of the city name
+        df['CityNum'] = df['City'].str.extract(r'(\d+)$').astype(float)
+
+        # Sort by city group, then by the number (ascending)
+        df_sorted = df.sort_values(['CityGroup', 'CityNum']).reset_index(drop=True)
+
+        city_groups = df_sorted['CityGroup'].unique()
 
         # Compute x positions and city label ticks
         x = []
