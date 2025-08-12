@@ -154,13 +154,13 @@ Distribution of object detected in 10 different videos of New York City (United 
   <tr>
     <td align="center"><img src="readme/Doha_Qatar.png?raw=true" alt="Doha_Qatar" width="220"/></td>
     <td align="center"><img src="readme/Dubai_United Arab Emirates.png?raw=true" alt="Dubai_United Arab Emirates" width="220"/></td>
-    <td align="center"><img src="readme/Istanbul_Turkey.png?raw=true" alt="Istanbul_Turkey" width="220"/></td>
+    <td align="center"><img src="readme/Istanbul_Türkiye.png?raw=true" alt="Istanbul_Türkiye" width="220"/></td>
     <td align="center"><img src="readme/Jakarta_Indonesia.png?raw=true" alt="Jakarta_Indonesia" width="220"/></td>
   </tr>
   <tr>
     <td align="center"><b>Doha (Qatar)</b></td>
     <td align="center"><b>Dubai (United Arab Emirates)</b></td>
-    <td align="center"><b>Istanbul (Turkey)</b></td>
+    <td align="center"><b>Istanbul (Türkiye.png)</b></td>
     <td align="center"><b>Jakarta (Indonesia)</b></td>
   </tr>
   <tr>
