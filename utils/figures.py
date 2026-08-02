@@ -16,7 +16,6 @@ from utils.information import Video_info
 # Suppress the specific FutureWarning
 warnings.filterwarnings("ignore", category=FutureWarning, module="plotly")
 
-logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
 
 
@@ -52,7 +51,7 @@ class Plots():
             )
 
     def save_plotly_figure(self, fig, filename, width=1600, height=900, scale=SCALE, save_final=True, save_png=True,
-                           save_eps=True):
+                           save_pdf=True):
         """
         Saves a Plotly figure as HTML, PNG, SVG, and EPS formats.
 
@@ -63,6 +62,8 @@ class Plots():
             height (int, optional): Height of the PNG and EPS images in pixels. Defaults to 900.
             scale (int, optional): Scaling factor for the PNG image. Defaults to 3.
             save_final (bool, optional): whether to save the "good" final figure.
+            save_png (bool, optional): whether to save a PNG image.
+            save_pdf (bool, optional): whether to save a PDF image.
         """
         # Create directory if it doesn't exist
         output_folder = "_output"
@@ -77,9 +78,10 @@ class Plots():
         if save_final:
             py.offline.plot(fig, filename=os.path.join(output_final, filename + ".html"),  auto_open=False)
 
-        try:
-            # Save as PNG
-            if save_png:
+        # Save static formats independently so one failure does not prevent the
+        # other output, and include the underlying error in the log.
+        if save_png:
+            try:
                 logger.info(f"Saving png file for {filename}.")
                 fig.write_image(os.path.join(output_folder, filename + ".png"), width=width, height=height,
                                 scale=scale)
@@ -87,17 +89,19 @@ class Plots():
                 if save_final:
                     shutil.copy(os.path.join(output_folder, filename + ".png"),
                                 os.path.join(output_final, filename + ".png"))
+            except Exception as error:
+                logger.error(f"Could not save PNG image {filename}: {error}.")
 
-            # Save as EPS
-            if save_eps:
-                logger.info(f"Saving eps file for {filename}.")
-                fig.write_image(os.path.join(output_folder, filename + ".eps"), width=width, height=height)
+        if save_pdf:
+            try:
+                logger.info(f"Saving pdf file for {filename}.")
+                fig.write_image(os.path.join(output_folder, filename + ".pdf"), width=width, height=height)
                 # also save the final figure
                 if save_final:
-                    shutil.copy(os.path.join(output_folder, filename + ".eps"),
-                                os.path.join(output_final, filename + ".eps"))
-        except ValueError:
-            logger.error(f"Value error raised when attempted to save image {filename}.")
+                    shutil.copy(os.path.join(output_folder, filename + ".pdf"),
+                                os.path.join(output_final, filename + ".pdf"))
+            except Exception as error:
+                logger.error(f"Could not save PDF image {filename}: {error}.")
 
     def stack_plot(self, final_dict, df_mapping, order_by, title_text, filename, font_size_captions=40,
                    x_axis_title_height=110, legend_x=0.92, legend_y=0.015, legend_spacing=0.02, left_margin=10,
@@ -460,7 +464,7 @@ class Plots():
                                 width=1800,
                                 height=TALL_FIG_HEIGHT,
                                 scale=SCALE,
-                                save_eps=True,
+                                save_pdf=True,
                                 save_final=True)
 
     def plot_choropleth(self, data_dict, value_key=None, title_text=None, filename=None):
@@ -497,7 +501,7 @@ class Plots():
             self.save_plotly_figure(fig=fig,
                                     filename=filename,
                                     scale=SCALE,
-                                    save_eps=True,
+                                    save_pdf=True,
                                     save_final=True)
 
         except Exception as e:
@@ -511,6 +515,10 @@ class Plots():
 
         if stack_cols is None:
             stack_cols = keys_of_interest
+
+        if "Bicycles" not in df.columns and "Cycles" in df.columns:
+            df = df.copy()
+            df["Bicycles"] = df["Cycles"]
 
         # Extract city group (name without number)
         df['CityGroup'] = df['City'].str.replace(r'\d+$', '', regex=True).str.strip()
@@ -615,5 +623,5 @@ class Plots():
         self.save_plotly_figure(fig=fig,
                                 filename=filename,
                                 scale=SCALE,
-                                save_eps=True,
+                                save_pdf=True,
                                 save_final=True)

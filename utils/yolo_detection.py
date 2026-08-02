@@ -11,7 +11,6 @@ import shutil
 import numpy as np
 import pandas as pd
 
-logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
 
 display_frame_tracking = common.get_configs("display_frame_tracking")

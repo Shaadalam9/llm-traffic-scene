@@ -22,9 +22,9 @@ class VideoFrameExtractor:
             os.makedirs(self.output_folder)
             self.logger.info(f"Created output folder: {self.output_folder}")
 
-    def extract_first_frame(self, filename):
+    def extract_first_frame(self, video_path):
         """Extract and save the first frame of a given video file."""
-        video_path = os.path.join(self.input_folder, filename)
+        filename = os.path.basename(video_path)
         cap = cv2.VideoCapture(video_path)
         success, frame = cap.read()
         if success:
@@ -38,9 +38,11 @@ class VideoFrameExtractor:
 
     def process_all_videos(self):
         """Process all supported video files in the input folder."""
-        for filename in os.listdir(self.input_folder):
-            if filename.lower().endswith(self.video_extensions):
-                self.extract_first_frame(filename)
+        for current_folder, folders, filenames in os.walk(self.input_folder):
+            folders[:] = [folder for folder in folders if not folder.startswith('.')]
+            for filename in filenames:
+                if filename.lower().endswith(self.video_extensions):
+                    self.extract_first_frame(os.path.join(current_folder, filename))
 
 
 if __name__ == "__main__":

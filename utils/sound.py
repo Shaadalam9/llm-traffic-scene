@@ -1,12 +1,11 @@
 import numpy as np
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 from scipy.io import wavfile
 import os
 import common
 from custom_logger import CustomLogger
 from logmod import logs
 
-logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
 
 
@@ -49,7 +48,8 @@ class Video_sound():
             raise ValueError(f"No audio track found in {video_path}")
 
         # Save the audio as a temporary WAV file (16-bit PCM)
-        temp_audio = "temp_audio.wav"
+        os.makedirs(common.cache_dir, exist_ok=True)
+        temp_audio = os.path.join(common.cache_dir, "temp_audio.wav")
         audio.write_audiofile(temp_audio, fps=44100, nbytes=2, codec='pcm_s16le', logger=None)
 
         # Read the audio data from the temporary file

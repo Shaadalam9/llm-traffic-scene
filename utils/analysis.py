@@ -6,7 +6,6 @@ from tqdm import tqdm
 import os
 import pandas as pd
 
-logs(show_level=common.get_configs("logger_level"), show_color=True)
 logger = CustomLogger(__name__)  # use custom logger
 
 
@@ -14,10 +13,10 @@ class Analysis_class:
     def __init__(self) -> None:
         pass
 
-    def read_csv_files(self, folder_path):
+    def read_csv_files(self, folder_path, recursive=True):
         """
-        Reads all CSV files in the specified folders, processes them if configured,
-        and returns their contents as a dictionary keyed by file name.
+        Reads CSV files from the specified folder and returns their contents as
+        a dictionary keyed by file name.
 
         This function will:
           - For each folder, it will check if it exists and log a warning if not.
@@ -30,8 +29,8 @@ class Analysis_class:
                 - The total seconds are greater than the configured `footage_threshold`.
 
         Args:
-            folder_paths (list[str]): List of folder paths containing the CSV files.
-            df_mapping (Any): A mapping object used to find values related to each file (for example, video IDs).
+            folder_path (str): Folder containing detection CSV files.
+            recursive (bool): Whether to search nested folders.
 
         Returns:
             dict: Dictionary where keys are the base file names (without extension),
@@ -39,27 +38,52 @@ class Analysis_class:
                   Only files meeting all value requirements are included.
         """
         dfs = {}
-        logger.info("Reading csv files.")
+        logger.info("Reading csv files from {}.", folder_path)
 
         if not os.path.exists(folder_path):
             logger.warning(f"Folder does not exist: {folder_path}.")
+            return dfs
 
-        for file in tqdm(os.listdir(folder_path)):
-            if file.endswith(".csv"):
-                filename = os.path.splitext(file)[0]
+        if recursive:
+            csv_files = []
+            for current_folder, folders, files in os.walk(folder_path):
+                folders[:] = [folder for folder in folders if not folder.startswith('.')]
+                for file in files:
+                    if file.lower().endswith(".csv"):
+                        csv_files.append(os.path.join(current_folder, file))
+        else:
+            csv_files = [
+                os.path.join(folder_path, file)
+                for file in os.listdir(folder_path)
+                if file.lower().endswith(".csv")
+                and os.path.isfile(os.path.join(folder_path, file))
+            ]
 
-                file_path = os.path.join(folder_path, file)
-                try:
-                    logger.debug(f"Adding file {file_path} to dfs.")
+        source_paths = {}
+        for file_path in tqdm(sorted(csv_files)):
+            filename = os.path.splitext(os.path.basename(file_path))[0]
 
-                    # Read the CSV into a DataFrame
-                    df = pd.read_csv(file_path)
+            if filename in dfs:
+                logger.warning(
+                    "Duplicate detection CSV name '{}'. Keeping {} and skipping {}.",
+                    filename,
+                    source_paths[filename],
+                    file_path
+                )
+                continue
 
-                    # Add the DataFrame to the dict
-                    dfs[filename] = df
-                except Exception as e:
-                    logger.error(f"Failed to read {file_path}: {e}.")
-                    continue  # Skip to the next file if reading fails
+            try:
+                logger.debug(f"Adding file {file_path} to dfs.")
+
+                # Read the CSV into a DataFrame
+                df = pd.read_csv(file_path)
+
+                # Add the DataFrame to the dict
+                dfs[filename] = df
+                source_paths[filename] = file_path
+            except Exception as e:
+                logger.error(f"Failed to read {file_path}: {e}.")
+                continue  # Skip to the next file if reading fails
         return dfs
 
     def count_object(self, dataframe, id):

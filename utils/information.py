@@ -34,7 +34,7 @@ class Video_info:
         """
         return round(size / (1024 * 1024), 2)
 
-    def analyse_video_files(self, folder_path, video_extensions=None):
+    def analyse_video_files(self, folder_path, video_extensions=None, inspect_metadata=True, recursive=True):
         """
         Analyzes video files in a given folder, returning the average file size (MB),
         standard deviation of file sizes (MB), the file with the maximum size,
@@ -44,6 +44,9 @@ class Video_info:
             folder_path (str): Path to the folder to scan.
             video_extensions (tuple, optional): File extensions to consider as videos.
                 Defaults to common video formats.
+            inspect_metadata (bool, optional): Whether to call ffprobe and log
+                detailed video metadata. Audio loudness is analysed regardless.
+            recursive (bool, optional): Whether to search nested video folders.
 
         Returns:
             dict: A dictionary containing:
@@ -58,25 +61,50 @@ class Video_info:
             # Common video file extensions
             video_extensions = ('.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.mpeg', '.mpg')
 
+        if not os.path.isdir(folder_path):
+            logger.warning(f"Video folder does not exist: {folder_path}.")
+            return {}
+
         files_info = []
         db_results = {}
 
-        # List all files in the directory and check if they are video files
-        for filename in os.listdir(folder_path):
-            if filename.lower().endswith(video_extensions):
-                full_path = os.path.join(folder_path, filename)
-                info = self.get_video_info(full_path)
-                self.print_video_info(info)
-                if os.path.isfile(full_path):
-                    size = os.path.getsize(full_path)
-                    files_info.append((filename, size))
-                    try:
-                        name_without_ext, _ = os.path.splitext(filename)
-                        db = sound_class.audio_db_from_video(full_path)
-                        db_results[name_without_ext] = float(db) if isinstance(db, np.floating) else db
-                    except Exception:
-                        name_without_ext, _ = os.path.splitext(filename)
-                        db_results[name_without_ext] = None  # or log the error
+        if recursive:
+            video_files = []
+            for current_folder, folders, filenames in os.walk(folder_path):
+                folders[:] = [folder for folder in folders if not folder.startswith('.')]
+                for filename in filenames:
+                    if filename.lower().endswith(video_extensions):
+                        video_files.append(os.path.join(current_folder, filename))
+        else:
+            video_files = [
+                os.path.join(folder_path, filename)
+                for filename in os.listdir(folder_path)
+                if filename.lower().endswith(video_extensions)
+                and os.path.isfile(os.path.join(folder_path, filename))
+            ]
+
+        # Inspect every selected video, including repeated city videos found in
+        # the configured repeated-video folder.
+        for full_path in sorted(video_files):
+            filename = os.path.basename(full_path)
+            if inspect_metadata:
+                try:
+                    info = self.get_video_info(full_path)
+                    self.print_video_info(info)
+                except Exception as error:
+                    logger.warning(f"Could not inspect video metadata for {filename}: {error}.")
+
+            size = os.path.getsize(full_path)
+            files_info.append((filename, size))
+            name_without_ext, _ = os.path.splitext(filename)
+            try:
+                db = sound_class.audio_db_from_video(full_path)
+                if name_without_ext in db_results:
+                    logger.warning(f"Duplicate video name found while analysing audio: {name_without_ext}.")
+                db_results[name_without_ext] = float(db) if isinstance(db, np.floating) else db
+            except Exception as error:
+                logger.warning(f"Could not analyse audio for {filename}: {error}.")
+                db_results[name_without_ext] = None
 
         if not files_info:
             logger.info("No video files found in folder: %s", folder_path)
